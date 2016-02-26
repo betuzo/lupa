@@ -1,0 +1,83 @@
+server:
+  port: 8090
+  session-timeout: 60
+
+security.basic.enabled: false
+endpoints.shutdown.enabled: true
+
+spring.profiles.active: devbd
+spring.profiles.include: localbmvstorage,devmail
+
+---
+spring:
+  profiles: devbd
+
+  jpa:
+    showSql: true
+    dataBase: H2
+    hibernate.generateDdl: true
+
+backend:
+  admin:
+    username: backendadmin
+    password: betuzo
+    backend.admin.role: BACKEND_ADMIN
+
+---
+spring:
+  profiles: preprobd
+
+  jpa:
+    showSql: false
+    dataBase: POSTGRESQL
+    hibernate.generateDdl: false
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2s0bat8nnmlr7?sslmode=require
+    username: lvqqialdspisrm
+    password: lt2X_hajbja1u4RqkJbj4VgfX8
+
+backend:
+  admin:
+    username: backendadmin
+    password: betuzo
+    backend.admin.role: BACKEND_ADMIN
+
+---
+spring:
+  profiles: googlestorage
+
+lupa:
+  web.pathPhoto: photo/
+  service.google:
+    bucketName: lupa-logo
+    pathWeb: https://storage.googleapis.com/lupa-logo/
+
+---
+spring:
+  profiles: localbmvstorage
+
+lupa.web.pathPhoto: /home/betuzo/opt/photo/
+
+---
+spring:
+  profiles: localhomestorage
+
+lupa.web.pathPhoto: /Users/betuzo/opt/photo/
+
+---
+spring:
+  profiles: devmail
+
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: xxx@gmail.com
+  password: xxx
+  from.default: notificacion@lupa.com
+  to.default: notificacion@lupa.com
+  subject.default: Notificacion lupa
+  smtp:
+    auth: true
+    starttls.enable: true
