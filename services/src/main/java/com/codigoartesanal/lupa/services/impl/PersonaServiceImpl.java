@@ -27,7 +27,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public Map<String, Object> createJugador(Map<String, String> jugadorMap, User admin) {
         Persona persona = convertMapToJugador(jugadorMap);
-        persona.setAdmin(admin);
+        persona.setUser(admin);
         return convertJugadorToMap(personaRepository.save(persona));
     }
 
@@ -43,7 +43,7 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public List<Map<String, Object>> listJugadorByAdmin(User user) {
-        Iterator<Persona> itJugador = personaRepository.findAllByAdmin(user).iterator();
+        Iterator<Persona> itJugador = personaRepository.findAllByUser(user).iterator();
         List<Map<String, Object>> copy = new ArrayList<>();
         while (itJugador.hasNext()) {
             Persona persona = itJugador.next();

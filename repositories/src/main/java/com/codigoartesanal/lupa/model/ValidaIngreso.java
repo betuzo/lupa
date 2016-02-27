@@ -25,4 +25,36 @@ public class ValidaIngreso {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoValidacion tipo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Ingreso getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(Ingreso ingreso) {
+        this.ingreso = ingreso;
+    }
+
+    public Persona getValidador() {
+        return validador;
+    }
+
+    public void setValidador(Persona validador) {
+        this.validador = validador;
+    }
+
+    public TipoValidacion getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoValidacion tipo) {
+        this.tipo = tipo;
+    }
 }

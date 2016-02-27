@@ -35,4 +35,60 @@ public class Ingreso {
 
     @Column(nullable = false)
     private boolean enabled;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Persona getDonador() {
+        return donador;
+    }
+
+    public void setDonador(Persona donador) {
+        this.donador = donador;
+    }
+
+    public Persona getRecaudador() {
+        return recaudador;
+    }
+
+    public void setRecaudador(Persona recaudador) {
+        this.recaudador = recaudador;
+    }
+
+    public Double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public TipoVisibilidad getVisibilidad() {
+        return visibilidad;
+    }
+
+    public void setVisibilidad(TipoVisibilidad visibilidad) {
+        this.visibilidad = visibilidad;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

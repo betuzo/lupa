@@ -14,7 +14,10 @@ import java.util.List;
  * Created by betuzo on 22/05/15.
  */
 public interface PersonaRepository extends CrudRepository<Persona, Long> {
-    List<Persona> findAllByAdmin(User admin);
+    List<Persona> findAllByUser(User user);
+
+    @Query("select pr from Persona pr where pr.user.username = :username")
+    Persona findByUsername(@Param("username") String username);
 
     @Transactional
     @Modifying
