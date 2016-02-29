@@ -20,29 +20,16 @@ public class StorageLocalImpl implements StorageImageService {
 
     @Override
     public boolean writeImage(byte[] file, String path, OriginPhoto originPhoto) {
-        return writeFile(file, getValidPathAbsolute(getPathBaseByOriginPhoto(originPhoto)) + path);
+        return writeFile(file, getValidPathAbsolute(originPhoto.getPathBase()) + path);
     }
 
     @Override
     public void deleteImage(String logo, OriginPhoto originPhoto) {
         String pathFull = env.getRequiredProperty(PathWebService.PROPERTY_STATIC_FILE_PHOTO)
-                + getPathBaseByOriginPhoto(originPhoto) + logo;
+                + originPhoto.getPathBase() + logo;
         File dir = new File(pathFull);
         if (dir.exists())
             dir.delete();
-    }
-
-    private String getPathBaseByOriginPhoto(OriginPhoto originPhoto){
-        switch (originPhoto){
-            case ARBITRO:
-                return PathPhoto.ARBITRO_BASE.getPath();
-            case PERSONA:
-                return PathPhoto.JUGADOR_BASE.getPath();
-            case EQUIPO:
-                return PathPhoto.EQUIPO_BASE.getPath();
-        }
-
-        return "";
     }
 
     private boolean writeFile(byte[] file, String path)  {

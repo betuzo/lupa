@@ -22,127 +22,52 @@ public class PathWebServiceTest {
     PathWebService pathWeb;
 
     @Test
-    public void testNullPathEquipoDefault() {
-        String path = pathWeb.getValidPathWebLogo(null, null);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT.getPath().equals(path));
+    public void testNullPathIngreso() {
+        String path = pathWeb.getValidPathWebFoto(null, OriginPhoto.INGRESO);
+        Assert.assertTrue(OriginPhoto.INGRESO.getPathDefault().equals(path));
     }
 
     @Test
-    public void testNullPathEquipoLocal() {
-        String path = pathWeb.getValidPathWebLogo(null, OrigenEstadistica.LOCAL);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT_LOCAL.getPath().equals(path));
-    }
-
-    @Test
-    public void testNullPathEquipoVisita() {
-        String path = pathWeb.getValidPathWebLogo(null, OrigenEstadistica.VISITA);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT_VISITA.getPath().equals(path));
-    }
-
-    @Test
-    public void testNullPathArbitro() {
-        String path = pathWeb.getValidPathWebFoto(null, OriginPhoto.ARBITRO);
-        Assert.assertTrue(PathPhoto.ARBITRO_DEFAULT.getPath().equals(path));
-    }
-
-    @Test
-    public void testNullPathJugador() {
+    public void testNullPathPersona() {
         String path = pathWeb.getValidPathWebFoto(null, OriginPhoto.PERSONA);
-        Assert.assertTrue(PathPhoto.JUGADOR_DEFAULT.getPath().equals(path));
+        Assert.assertTrue(OriginPhoto.PERSONA.getPathDefault().equals(path));
     }
 
     @Test
-    public void testEmptyPathEquipoDefault() {
-        String path = pathWeb.getValidPathWebLogo("", null);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT.getPath().equals(path));
+    public void testEmptyPathIngreso() {
+        String path = pathWeb.getValidPathWebFoto("", OriginPhoto.INGRESO);
+        Assert.assertTrue(OriginPhoto.INGRESO.getPathDefault().equals(path));
     }
 
     @Test
-    public void testEmptyPathEquipoLocal() {
-        String path = pathWeb.getValidPathWebLogo("", OrigenEstadistica.LOCAL);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT_LOCAL.getPath().equals(path));
-    }
-
-    @Test
-    public void testEmptyPathEquipoVisita() {
-        String path = pathWeb.getValidPathWebLogo("", OrigenEstadistica.VISITA);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT_VISITA.getPath().equals(path));
-    }
-
-    @Test
-    public void testEmptyPathArbitro() {
-        String path = pathWeb.getValidPathWebFoto("", OriginPhoto.ARBITRO);
-        Assert.assertTrue(PathPhoto.ARBITRO_DEFAULT.getPath().equals(path));
-    }
-
-    @Test
-    public void testEmptyPathJugador() {
+    public void testEmptyPathPersona() {
         String path = pathWeb.getValidPathWebFoto("", OriginPhoto.PERSONA);
-        Assert.assertTrue(PathPhoto.JUGADOR_DEFAULT.getPath().equals(path));
+        Assert.assertTrue(OriginPhoto.PERSONA.getPathDefault().equals(path));
     }
 
     @Test
-    public void testInvalidPathEquipoDefault() {
-        String path = pathWeb.getValidPathWebLogo("sadasd", null);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT.getPath().equals(path));
+    public void testInvalidPathIngreso() {
+        String path = pathWeb.getValidPathWebFoto("asdas", OriginPhoto.INGRESO);
+        Assert.assertTrue(OriginPhoto.INGRESO.getPathDefault().equals(path));
     }
 
     @Test
-    public void testInvalidPathEquipoLocal() {
-        String path = pathWeb.getValidPathWebLogo("sadasd", OrigenEstadistica.LOCAL);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT_LOCAL.getPath().equals(path));
-    }
-
-    @Test
-    public void testInvalidPathEquipoVisita() {
-        String path = pathWeb.getValidPathWebLogo("sadasd", OrigenEstadistica.VISITA);
-        Assert.assertTrue(PathPhoto.EQUIPO_DEFAULT_VISITA.getPath().equals(path));
-    }
-
-    @Test
-    public void testInvalidPathArbitro() {
-        String path = pathWeb.getValidPathWebFoto("asdas", OriginPhoto.ARBITRO);
-        Assert.assertTrue(PathPhoto.ARBITRO_DEFAULT.getPath().equals(path));
-    }
-
-    @Test
-    public void testInvalidPathJugador() {
+    public void testInvalidPathPersona() {
         String path = pathWeb.getValidPathWebFoto("asdas", OriginPhoto.PERSONA);
-        Assert.assertTrue(PathPhoto.JUGADOR_DEFAULT.getPath().equals(path));
+        Assert.assertTrue(OriginPhoto.PERSONA.getPathDefault().equals(path));
     }
 
     @Test
-    public void testValidPathEquipoDefault() {
-        String name = "equipo-test.svg";
-        String path = pathWeb.getValidPathWebLogo(name, null);
-        Assert.assertTrue(path.contains(name));
-    }
-
-    @Test
-    public void testValidPathEquipoLocal() {
-        String name = "equipo-test.svg";
-        String path = pathWeb.getValidPathWebLogo(name, OrigenEstadistica.LOCAL);
-        Assert.assertTrue(path.contains(name));
-    }
-
-    @Test
-    public void testValidPathEquipoVisita() {
-        String name = "equipo-test.svg";
-        String path = pathWeb.getValidPathWebLogo(name, OrigenEstadistica.VISITA);
-        Assert.assertTrue(path.contains(name));
-    }
-
-    @Test
-    public void testValidPathJugador() {
-        String name = "jugador-test.png";
+    public void testValidPathPersona() {
+        String name = "persona-test.png";
         String path = pathWeb.getValidPathWebFoto(name, OriginPhoto.PERSONA);
         Assert.assertTrue(path.contains(name));
     }
 
     @Test
-    public void testValidPathArbitro() {
-        String name = "arbitro-test.png";
-        String path = pathWeb.getValidPathWebFoto(name, OriginPhoto.ARBITRO);
+    public void testValidPathIngreso() {
+        String name = "ingreso-test.png";
+        String path = pathWeb.getValidPathWebFoto(name, OriginPhoto.INGRESO);
         Assert.assertTrue(path.contains(name));
     }
 

@@ -26,6 +26,12 @@ public class Ingreso {
     @Column(nullable = false)
     private Double monto;
 
+    @Column(nullable = true)
+    private String comentario;
+
+    @Column(nullable = true)
+    private String fichaPago;
+
     @Column(name = "fecha_registro")
     private Date fechaRegistro;
 
@@ -66,6 +72,22 @@ public class Ingreso {
 
     public void setMonto(Double monto) {
         this.monto = monto;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getFichaPago() {
+        return fichaPago;
+    }
+
+    public void setFichaPago(String fichaPago) {
+        this.fichaPago = fichaPago;
     }
 
     public Date getFechaRegistro() {

@@ -26,7 +26,8 @@ define([
             'token/:token':                 'token',
             'change/:token':                'changeToken',
             'admin':                        'admin',
-            'admin/perfil':                 'adminPerfil'
+            'admin/perfil':                 'adminPerfil',
+            'admin/donacion':               'adminDonacion'
         },
 
         requresAuth : ['#admin'],
@@ -112,6 +113,10 @@ define([
         adminPerfil: function() {
             var view = new PerfilAdminView();
             this.changeView(view);
+        },
+
+        adminDonacion: function() {
+
         }
 	});
 

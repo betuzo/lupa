@@ -4,7 +4,6 @@ import com.codigoartesanal.lupa.model.*;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
 import com.codigoartesanal.lupa.services.PersonaService;
 import com.codigoartesanal.lupa.services.OriginPhoto;
-import com.codigoartesanal.lupa.services.PathPhoto;
 import com.codigoartesanal.lupa.services.PathWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -67,7 +66,7 @@ public class PersonaServiceImpl implements PersonaService {
         map.put(PROPERTY_LOGO_JUGADOR, persona.getRutaFoto());
         String pathWebFull = pathWebService.getValidPathWebFoto(persona.getRutaFoto(), OriginPhoto.PERSONA);
         map.put(PROPERTY_RUTA_LOGO_JUGADOR, pathWebFull);
-        map.put(PROPERTY_HAS_LOGO_JUGADOR, !pathWebFull.contains(PathPhoto.JUGADOR_DEFAULT.getPath()));
+        map.put(PROPERTY_HAS_LOGO_JUGADOR, !pathWebFull.contains(OriginPhoto.PERSONA.getPathDefault()));
         map.put(PROPERTY_SEXO, persona.getSexo());
         map.put(PROPERTY_FECHA_REGISTRO, persona.getFechaRegistro());
 

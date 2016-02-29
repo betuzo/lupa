@@ -84,7 +84,7 @@ public class FileUploadController {
         personaService.updateFotoByJugador("", idJugador);
 
         result.put("result", "success");
-        result.put("defaultname", PathPhoto.JUGADOR_DEFAULT.getPath());
+        result.put("defaultname", originPhoto.getPathDefault());
         return result;
     }
 
