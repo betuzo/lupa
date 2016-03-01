@@ -13,7 +13,7 @@ public class Persona {
     @SequenceGenerator(name="persona_id_seq", sequenceName="persona_id_seq")
     private Long id;
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "username", nullable = false)
     private User user;
     private String nombre;
     private String paterno;

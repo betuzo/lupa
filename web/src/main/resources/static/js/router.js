@@ -8,13 +8,15 @@ define([
     'views/TokenValidateView',
     'views/TokenChangePassView',
 	'views/private/perfil/PerfilAdminView',
+	'views/private/ingreso/IngresoAdminView',
 	'views/private/MainAdminNavView',
 	'views/public/MainView',
     'views/public/MainNavView',
 	'Session'
 ], function($, _, Backbone, BaseRouter, LoginView, SignupView,
             TokenValidateView, TokenChangePassView, PerfilAdminView,
-            MainAdminNavView, MainView, MainNavView, Session){
+            IngresoAdminView, MainAdminNavView, MainView, MainNavView,
+            Session){
         var Router = BaseRouter.extend({
 
         routes: {
@@ -116,7 +118,8 @@ define([
         },
 
         adminDonacion: function() {
-
+            var view = new IngresoAdminView();
+            this.changeView(view);
         }
 	});
 

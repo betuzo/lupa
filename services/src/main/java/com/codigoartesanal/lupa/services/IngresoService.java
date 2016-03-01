@@ -22,7 +22,9 @@ public interface IngresoService {
     String PROPERTY_RUTA_FICHA_PAGO     = "rutaFichaPago";
     String PROPERTY_FECHA_REGISTRO      = "fechaRegistro";
     String PROPERTY_VISIBILIDAD         = "visibilidad";
+    String PROPERTY_VISIBILIDAD_DES     = "visibilidadDes";
     String PROPERTY_ENABLED             = "enabled";
+    String PROPERTY_ENABLED_DES         = "enabledDes";
 
     Map<String,Object> createIngreso(Map<String, String> ingreso, User user);
 

@@ -15,6 +15,7 @@ define([
             comentario: '',
             fichaPago: 'novalid',
             fechaRegistro: (new Date()).getTime(),
+            fechaRegistroDes: '',
             visibilidad: 'PUBLICA',
             enabled: 'false'
         },

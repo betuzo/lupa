@@ -8,7 +8,7 @@ define([
     'Session'
 ], function($, Backbone, BaseView, UserModel, ModalGenericView, tplPerfilAdmin, Session){
 
-    var LigaAdminView = BaseView.extend({
+    var PerfilAdminView = BaseView.extend({
         template: _.template(tplPerfilAdmin),
 
         events: {
@@ -38,6 +38,6 @@ define([
         }
     });
 
-    return LigaAdminView;
+    return PerfilAdminView;
 
 });

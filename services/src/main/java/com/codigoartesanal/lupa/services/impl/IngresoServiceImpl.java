@@ -1,9 +1,6 @@
 package com.codigoartesanal.lupa.services.impl;
 
-import com.codigoartesanal.lupa.model.Ingreso;
-import com.codigoartesanal.lupa.model.Persona;
-import com.codigoartesanal.lupa.model.TipoVisibilidad;
-import com.codigoartesanal.lupa.model.User;
+import com.codigoartesanal.lupa.model.*;
 import com.codigoartesanal.lupa.repositories.IngresoRepository;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
 import com.codigoartesanal.lupa.services.IngresoService;
@@ -34,7 +31,7 @@ public class IngresoServiceImpl implements IngresoService {
         Ingreso ingreso = convertMapToIngreso(ingresoMap);
         ingreso.setRecaudador(personaRepository.findByUsername(user.getUsername()));
         ingreso.setFechaRegistro(new Date());
-        ingreso.setEnabled(false);
+        ingreso.setStatus(StatusIngreso.REGISTRADA);
         return convertIngresoToMap(ingresoRepository.save(ingreso));
     }
 
@@ -54,9 +51,13 @@ public class IngresoServiceImpl implements IngresoService {
         Map<String, Object> map = new HashMap<>();
         map.put(PROPERTY_ID, ingreso.getId());
         map.put(PROPERTY_DONADOR_ID, ingreso.getDonador().getId());
-        map.put(PROPERTY_DONADOR_NOMBRE, ingreso.getDonador().getNombre());
+        if (TipoVisibilidad.PUBLICA == ingreso.getVisibilidad()) {
+            map.put(PROPERTY_DONADOR_NOMBRE, ingreso.getDonador().getNombreCompleto());
+        } else {
+            map.put(PROPERTY_DONADOR_NOMBRE, TipoVisibilidad.ANONIMA.getDescription());
+        }
         map.put(PROPERTY_RECAUDADOR_ID, ingreso.getRecaudador().getId());
-        map.put(PROPERTY_RECAUDADOR_NOMBRE, ingreso.getRecaudador().getNombre());
+        map.put(PROPERTY_RECAUDADOR_NOMBRE, ingreso.getRecaudador().getNombreCompleto());
         map.put(PROPERTY_MONTO, ingreso.getMonto());
         map.put(PROPERTY_COMENTARIO, ingreso.getComentario());
         map.put(PROPERTY_FICHA_PAGO, ingreso.getFichaPago());
@@ -65,7 +66,9 @@ public class IngresoServiceImpl implements IngresoService {
         map.put(PROPERTY_HAS_FICHA_PAGO, !pathWebFull.contains(OriginPhoto.INGRESO.getPathDefault()));
         map.put(PROPERTY_FECHA_REGISTRO, ingreso.getFechaRegistro());
         map.put(PROPERTY_VISIBILIDAD, ingreso.getVisibilidad());
-        map.put(PROPERTY_ENABLED, ingreso.isEnabled());
+        map.put(PROPERTY_VISIBILIDAD_DES, ingreso.getVisibilidad().getDescription());
+        map.put(PROPERTY_ENABLED, ingreso.getStatus());
+        map.put(PROPERTY_ENABLED_DES, ingreso.getStatus().getDescription());
 
         return map;
     }
@@ -81,7 +84,7 @@ public class IngresoServiceImpl implements IngresoService {
         ingreso.setMonto(Double.parseDouble(ingresoMap.get(PROPERTY_MONTO)));
         ingreso.setComentario(ingresoMap.get(PROPERTY_COMENTARIO));
         ingreso.setVisibilidad(TipoVisibilidad.valueOf(ingresoMap.get(PROPERTY_VISIBILIDAD)));
-        ingreso.setEnabled(Boolean.parseBoolean(ingresoMap.get(PROPERTY_ENABLED)));
+        ingreso.setStatus(StatusIngreso.valueOf(ingresoMap.get(PROPERTY_ENABLED)));
         ingreso.setFechaRegistro(new Date(Long.valueOf(ingresoMap.get(PROPERTY_FECHA_REGISTRO))));
 
         return ingreso;

@@ -29,7 +29,7 @@ public class Ingreso {
     @Column(nullable = true)
     private String comentario;
 
-    @Column(nullable = true)
+    @Column(name = "ficha_pago", nullable = true)
     private String fichaPago;
 
     @Column(name = "fecha_registro")
@@ -39,8 +39,9 @@ public class Ingreso {
     @Column(nullable = false)
     private TipoVisibilidad visibilidad;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private boolean enabled;
+    private StatusIngreso status;
 
     public Long getId() {
         return id;
@@ -106,11 +107,11 @@ public class Ingreso {
         this.visibilidad = visibilidad;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public StatusIngreso getStatus() {
+        return status;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setStatus(StatusIngreso status) {
+        this.status = status;
     }
 }

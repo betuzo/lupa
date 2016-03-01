@@ -24,7 +24,7 @@ public class UserServiceTest {
 
     @Test
     public void testFindByUsername() {
-        Map<String, Object> userMap = userService.findByUsername("jsoto");
+        Map<String, Object> userMap = userService.findByUsername("jsoto@tu.me");
         Assert.assertNotNull(userMap);
     }
 }
