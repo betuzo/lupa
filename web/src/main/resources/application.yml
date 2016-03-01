@@ -34,9 +34,9 @@ spring:
 
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2s0bat8nnmlr7?sslmode=require
-    username: lvqqialdspisrm
-    password: lt2X_hajbja1u4RqkJbj4VgfX8
+    url: jdbc:postgresql://ec2-54-83-3-38.compute-1.amazonaws.com:5432/d9ffnjphkbi98s?sslmode=require
+    username: xxqxnnocoxzjrf
+    password:  8jSZWLHpyJ7ghB1m_l5PTtdcOK
 
 backend:
   admin:
@@ -51,8 +51,8 @@ spring:
 lupa:
   web.pathPhoto: photo/
   service.google:
-    bucketName: lupa-logo
-    pathWeb: https://storage.googleapis.com/lupa-logo/
+    bucketName: sis-lupa-img
+    pathWeb: https://storage.googleapis.com/sis-lupa-img/
 
 ---
 spring:
@@ -73,8 +73,8 @@ spring:
 mail:
   host: smtp.gmail.com
   port: 587
-  username: xxx@gmail.com
-  password: xxx
+  username: sit.utec@gmail.com
+  password: situtec2015
   from.default: notificacion@lupa.com
   to.default: notificacion@lupa.com
   subject.default: Notificacion lupa

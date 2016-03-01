@@ -36,8 +36,8 @@ public class StorageImageServiceTest {
         String serveerPath ="./src/test/resources/img/photo/equipo/";
         byte[] contenido = "Hallo World".getBytes();
         boolean result = true;
-        result = storageImageService.writeImage(contenido, name, OriginPhoto.EQUIPO);
-        storageImageService.deleteImage(name, OriginPhoto.EQUIPO);
+        result = storageImageService.writeImage(contenido, name, OriginPhoto.INGRESO);
+        storageImageService.deleteImage(name, OriginPhoto.INGRESO);
         File dir = new File(serveerPath + name);
         if (dir.exists()) {
             Assert.assertTrue(false);

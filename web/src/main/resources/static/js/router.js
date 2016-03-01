@@ -8,13 +8,15 @@ define([
     'views/TokenValidateView',
     'views/TokenChangePassView',
 	'views/private/perfil/PerfilAdminView',
+	'views/private/ingreso/IngresoAdminView',
 	'views/private/MainAdminNavView',
 	'views/public/MainView',
     'views/public/MainNavView',
 	'Session'
 ], function($, _, Backbone, BaseRouter, LoginView, SignupView,
             TokenValidateView, TokenChangePassView, PerfilAdminView,
-            MainAdminNavView, MainView, MainNavView, Session){
+            IngresoAdminView, MainAdminNavView, MainView, MainNavView,
+            Session){
         var Router = BaseRouter.extend({
 
         routes: {
@@ -26,7 +28,8 @@ define([
             'token/:token':                 'token',
             'change/:token':                'changeToken',
             'admin':                        'admin',
-            'admin/perfil':                 'adminPerfil'
+            'admin/perfil':                 'adminPerfil',
+            'admin/donacion':               'adminDonacion'
         },
 
         requresAuth : ['#admin'],
@@ -111,6 +114,11 @@ define([
 
         adminPerfil: function() {
             var view = new PerfilAdminView();
+            this.changeView(view);
+        },
+
+        adminDonacion: function() {
+            var view = new IngresoAdminView();
             this.changeView(view);
         }
 	});

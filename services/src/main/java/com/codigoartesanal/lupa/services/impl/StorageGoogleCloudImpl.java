@@ -27,28 +27,15 @@ public class StorageGoogleCloudImpl implements StorageImageService {
     @Override
     public boolean writeImage(byte[] file, String logo, OriginPhoto originPhoto) {
         String pathFull = env.getRequiredProperty(PathWebService.PROPERTY_STATIC_FILE_PHOTO) +
-                getPathBaseByOriginPhoto(originPhoto) + logo;
+                originPhoto.getPathBase() + logo;
         return writeFile(file, pathFull);
     }
 
     @Override
     public void deleteImage(String logo, OriginPhoto originPhoto) {
         String pathFull = env.getRequiredProperty(PathWebService.PROPERTY_STATIC_FILE_PHOTO) +
-                getPathBaseByOriginPhoto(originPhoto) + logo;
+                originPhoto.getPathBase() + logo;
         deleteFile(pathFull);
-    }
-
-    private String getPathBaseByOriginPhoto(OriginPhoto originPhoto){
-        switch (originPhoto){
-            case ARBITRO:
-                return PathPhoto.ARBITRO_BASE.getPath();
-            case PERSONA:
-                return PathPhoto.JUGADOR_BASE.getPath();
-            case EQUIPO:
-                return PathPhoto.EQUIPO_BASE.getPath();
-        }
-
-        return "";
     }
 
     private void deleteFile(String path){

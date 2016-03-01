@@ -9,12 +9,12 @@ import java.util.Date;
 @Entity
 public class Persona {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="jugador_id_seq")
-    @SequenceGenerator(name="jugador_id_seq", sequenceName="jugador_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="persona_id_seq")
+    @SequenceGenerator(name="persona_id_seq", sequenceName="persona_id_seq")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "admin_id", nullable = false)
-    private User admin;
+    @OneToOne
+    @JoinColumn(name = "username", nullable = false)
+    private User user;
     private String nombre;
     private String paterno;
     private String materno;
@@ -33,12 +33,12 @@ public class Persona {
         this.id = id;
     }
 
-    public User getAdmin() {
-        return admin;
+    public User getUser() {
+        return user;
     }
 
-    public void setAdmin(User admin) {
-        this.admin = admin;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getNombre() {
@@ -97,7 +97,7 @@ public class Persona {
     public String toString() {
         return "Persona{" +
                 "id=" + id +
-                ", admin=" + admin +
+                ", user=" + user +
                 ", nombre='" + nombre + '\'' +
                 ", paterno='" + paterno + '\'' +
                 ", materno='" + materno + '\'' +
