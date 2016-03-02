@@ -56,7 +56,7 @@ public class FileUploadController {
 
                 OriginPhoto originPhoto = OriginPhoto.valueOf(origin);
                 storageImageServices.writeImage(bytes, nameLogo, originPhoto);
-                personaService.updateFotoByJugador(nameLogo, id);
+                personaService.updateFotoByPersona(nameLogo, id);
 
 
                 result.put("result", "success");
@@ -81,7 +81,7 @@ public class FileUploadController {
 
         OriginPhoto originPhoto = OriginPhoto.valueOf(origin);
         storageImageServices.deleteImage(foto, originPhoto);
-        personaService.updateFotoByJugador("", idJugador);
+        personaService.updateFotoByPersona("", idJugador);
 
         result.put("result", "success");
         result.put("defaultname", originPhoto.getPathDefault());

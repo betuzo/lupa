@@ -27,17 +27,17 @@ public class PersonaController {
             value = { "" },
             method = {RequestMethod.POST},
             produces = {"application/json;charset=UTF-8"})
-    public Map<String, Object> createJugador(@RequestBody Map<String, String> jugador, User user) {
-        return personaService.createJugador(jugador, user);
+    public Map<String, Object> createPersona(@RequestBody Map<String, String> persona, User user) {
+        return personaService.createPersona(persona, user);
     }
 
     @ResponseBody
     @RequestMapping(
-            value = { "/{jugador}" },
+            value = { "/{persona}" },
             method = {RequestMethod.PUT},
             produces = {"application/json;charset=UTF-8"})
-    public Map<String, Object> updateJugador(@RequestBody Map<String, String> jugador, User user) {
-        return personaService.createJugador(jugador, user);
+    public Map<String, Object> updatePersona(@RequestBody Map<String, String> persona, User user) {
+        return personaService.createPersona(persona, user);
     }
 
     @ResponseBody
@@ -45,26 +45,36 @@ public class PersonaController {
             value = { "" },
             method = {RequestMethod.GET},
             produces = {"application/json;charset=UTF-8"})
-    public List<Map<String, Object>> listJugadorByUser(User user) {
-        return personaService.listJugadorByAdmin(user);
+    public List<Map<String, Object>> listPersonaByUser(User user) {
+        return personaService.listPersonaByAdmin(user);
     }
 
     @ResponseBody
     @RequestMapping(
-            value = { "/{jugador}" },
+            value = { "/role/{role}" },
+            method = {RequestMethod.GET},
+            produces = {"application/json;charset=UTF-8"})
+    public List<Map<String, Object>> listPersonaByRole(@PathVariable("role") String role) {
+        return personaService.listPersonaByRole(role);
+    }
+
+
+    @ResponseBody
+    @RequestMapping(
+            value = { "/{persona}" },
             method = {RequestMethod.DELETE},
             produces = {"application/json;charset=UTF-8"})
-    public Map<String, Object> deleteLiga(@PathVariable("jugador") Long idJugador, User user) {
+    public Map<String, Object> deleteLiga(@PathVariable("persona") Long idPersona, User user) {
         Map<String, Object> response = new HashMap<>();
-        response.put(PersonaService.PROPERTY_ID, idJugador);
-        DeleteStatusEnum result = personaService.deleteJugador(idJugador);
+        response.put(PersonaService.PROPERTY_ID, idPersona);
+        DeleteStatusEnum result = personaService.deletePersona(idPersona);
         if (result == DeleteStatusEnum.OK) {
             response.put(GeneralService.PROPERTY_RESULT, true);
             response.put(GeneralService.PROPERTY_MESSAGE, "Persona eliminado");
         } else {
             response.put(GeneralService.PROPERTY_RESULT, false);
             response.put(GeneralService.PROPERTY_MESSAGE,
-                    "El jugador no se puede eliminar, ya participa en torneo(s)");
+                    "El persona no se puede eliminar, ya participa en torneo(s)");
         }
         return response;
     }

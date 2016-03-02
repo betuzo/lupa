@@ -24,14 +24,14 @@ public class PersonaServiceImpl implements PersonaService {
     PathWebService pathWebService;
 
     @Override
-    public Map<String, Object> createJugador(Map<String, String> jugadorMap, User admin) {
+    public Map<String, Object> createPersona(Map<String, String> jugadorMap, User admin) {
         Persona persona = convertMapToJugador(jugadorMap);
         persona.setUser(admin);
         return convertJugadorToMap(personaRepository.save(persona));
     }
 
     @Override
-    public DeleteStatusEnum deleteJugador(Long idJugador) {
+    public DeleteStatusEnum deletePersona(Long idJugador) {
         try {
             personaRepository.delete(idJugador);
         } catch (DataIntegrityViolationException exception){
@@ -41,7 +41,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public List<Map<String, Object>> listJugadorByAdmin(User user) {
+    public List<Map<String, Object>> listPersonaByAdmin(User user) {
         Iterator<Persona> itJugador = personaRepository.findAllByUser(user).iterator();
         List<Map<String, Object>> copy = new ArrayList<>();
         while (itJugador.hasNext()) {
@@ -53,8 +53,20 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public void updateFotoByJugador(String foto, Long idJugador) {
+    public void updateFotoByPersona(String foto, Long idJugador) {
         personaRepository.updateFotoByIdJugador(foto, idJugador);
+    }
+
+    @Override
+    public List<Map<String, Object>> listPersonaByRole(String role) {
+        Iterator<Persona> itJugador = personaRepository.findAllByRole(role).iterator();
+        List<Map<String, Object>> copy = new ArrayList<>();
+        while (itJugador.hasNext()) {
+            Persona persona = itJugador.next();
+            Map<String, Object> dto = convertJugadorToMap(persona);
+            copy.add(dto);
+        }
+        return copy;
     }
 
     private Map<String, Object> convertJugadorToMap(Persona persona) {
@@ -63,10 +75,10 @@ public class PersonaServiceImpl implements PersonaService {
         map.put(PROPERTY_NOMBRE, persona.getNombre());
         map.put(PROPERTY_PATERNO, persona.getPaterno());
         map.put(PROPERTY_MATERNO, persona.getMaterno());
-        map.put(PROPERTY_LOGO_JUGADOR, persona.getRutaFoto());
+        map.put(PROPERTY_FOTO_PERSONA, persona.getRutaFoto());
         String pathWebFull = pathWebService.getValidPathWebFoto(persona.getRutaFoto(), OriginPhoto.PERSONA);
-        map.put(PROPERTY_RUTA_LOGO_JUGADOR, pathWebFull);
-        map.put(PROPERTY_HAS_LOGO_JUGADOR, !pathWebFull.contains(OriginPhoto.PERSONA.getPathDefault()));
+        map.put(PROPERTY_RUTA_FOTO_PERSONA, pathWebFull);
+        map.put(PROPERTY_HAS_FOTO_PERSONA, !pathWebFull.contains(OriginPhoto.PERSONA.getPathDefault()));
         map.put(PROPERTY_SEXO, persona.getSexo());
         map.put(PROPERTY_FECHA_REGISTRO, persona.getFechaRegistro());
 
@@ -81,7 +93,7 @@ public class PersonaServiceImpl implements PersonaService {
         persona.setNombre(ligaMap.get(PROPERTY_NOMBRE));
         persona.setPaterno(ligaMap.get(PROPERTY_PATERNO));
         persona.setMaterno(ligaMap.get(PROPERTY_MATERNO));
-        persona.setRutaFoto(ligaMap.get(PROPERTY_LOGO_JUGADOR));
+        persona.setRutaFoto(ligaMap.get(PROPERTY_FOTO_PERSONA));
         persona.setSexo(Sexo.valueOf(ligaMap.get(PROPERTY_SEXO)));
         persona.setFechaRegistro(new Date(Long.valueOf(ligaMap.get(PROPERTY_FECHA_REGISTRO))));
 

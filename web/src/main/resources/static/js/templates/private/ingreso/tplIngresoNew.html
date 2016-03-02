@@ -1,0 +1,48 @@
+<div class="modal fade" id="ingreso-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-lupa" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Donacion</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-jugador" role="form">
+                    <p>Detalle Donacion.</p>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Donador</label>
+                                <input class="form-control" placeholder="Nombre" type="text" name="nombre" value="">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Monto</label>
+                                <input class="form-control" placeholder="Paterno" type="text" name="paterno" value="<%= monto %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Comentario</label>
+                                <input class="form-control" placeholder="Materno" type="text" name="materno" value="<%= comentario %>">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Visibilidad</label>
+                                <select class="form-control" id="select-sexo" placeholder="Sexo..." name="sexo">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close-lupa" data-dismiss="modal">Cancelar</button>
+                    <button id="btn-aceptar" type="button" class="btn btn-success">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

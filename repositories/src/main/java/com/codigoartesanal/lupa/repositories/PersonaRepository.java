@@ -23,4 +23,7 @@ public interface PersonaRepository extends CrudRepository<Persona, Long> {
     @Modifying
     @Query("update Persona e set e.rutaFoto = :rutaFotoJugador where e.id = :id")
     int updateFotoByIdJugador(@Param("rutaFotoJugador") String rutaFotoJugador, @Param("id") Long id);
+
+    @Query("select pr from Persona pr where pr.user.username in (select ur from UserRole ur where ur.role = :role)")
+    List<Persona> findAllByRole(@Param("role") String role);
 }
