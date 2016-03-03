@@ -12,13 +12,14 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Donador</label>
-                                <input class="form-control" placeholder="Nombre" type="text" name="nombre" value="">
+                                <select class="form-control" id="select-donador" placeholder="Donador..." name="donadorId" value="<%= donadorId %>">
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Monto</label>
-                                <input class="form-control" placeholder="Paterno" type="text" name="paterno" value="<%= monto %>">
+                                <input class="form-control" placeholder="Monto" type="number" name="monto" value="<%= monto %>">
                             </div>
                         </div>
                     </div>
@@ -26,13 +27,13 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Comentario</label>
-                                <input class="form-control" placeholder="Materno" type="text" name="materno" value="<%= comentario %>">
+                                <input class="form-control" placeholder="Comentario" type="text" name="comentario" value="<%= comentario %>">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Visibilidad</label>
-                                <select class="form-control" id="select-sexo" placeholder="Sexo..." name="sexo">
+                                <select class="form-control" id="select-visibilidad" placeholder="Visibilidad..." name="visibilidad" value="<%= visibilidad %>">
                                 </select>
                             </div>
                         </div>
