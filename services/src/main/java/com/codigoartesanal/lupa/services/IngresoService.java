@@ -29,4 +29,6 @@ public interface IngresoService {
     Map<String,Object> createIngreso(Map<String, String> ingreso, User user);
 
     List<Map<String,Object>> listIngresos();
+
+    void deleteIngreso(Long idIngreso);
 }

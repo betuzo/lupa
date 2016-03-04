@@ -25,19 +25,23 @@ define([
 
         validation: {
             donadorId: {
-                required: true
+                required: true,
+                msg: 'Por favor especifique el donador'
             },
             recaudadorId: {
-                required: true
+                required: false,
+                msg: 'Por favor especifique un email correcto'
             },
             monto: {
-                required: true
+                required: true,
+                msg: 'Por favor especifique un monto correcto'
             },
             visibilidad: {
-                required: true
+                required: true,
+                msg: 'Por favor especifique la visibilidad'
             },
             fichaPago: {
-                required: true
+                required: false
             }
         }
 

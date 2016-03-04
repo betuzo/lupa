@@ -1,5 +1,6 @@
 package com.codigoartesanal.lupa.infrastructure;
 
+import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.exception.TokenException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -39,6 +40,10 @@ public class ExceptionAop {
     public void userTokenControllerLayer() {
     }
 
+    @Pointcut("execution(* com.codigoartesanal.lupa.controller.*Controller.delete*(..))")
+    public void deleteControllerLayer() {
+    }
+
     @AfterThrowing(pointcut = "controllerLayer()", throwing= "error")
     public void throwingControllerMethod(JoinPoint joinPoint, Throwable error) throws Throwable{
         logger.info("Controller " + joinPoint.getTarget().getClass()
@@ -64,6 +69,14 @@ public class ExceptionAop {
             pointcut = "userTokenControllerLayer())",  throwing= "error")
     public void throwingUserTokenController(JoinPoint joinPoint, Throwable error) {
         if (error.getClass().equals(TokenException.class)) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @AfterThrowing(
+            pointcut = "deleteControllerLayer())",  throwing= "error")
+    public void throwingdeleteController(JoinPoint joinPoint, Throwable error) {
+        if (error.getClass().equals(DeleteException.class)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

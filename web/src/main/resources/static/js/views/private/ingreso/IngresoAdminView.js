@@ -37,7 +37,7 @@ define([
         },
 
         ingresoNuevo: function(){
-            new IngresoNewView();
+            new IngresoNewView({tipo: 'new', callbackNewIngreso: this.agregarIngreso});
         }
     });
 
