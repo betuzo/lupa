@@ -12,16 +12,27 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Donador</label>
-                                <select class="form-control" id="select-donador" placeholder="Donador..." name="donadorId" value="<%= donadorId %>">
-                                </select>
-                                <p class="help-block"></p>
+                                <p><%= donadorNombre %></p>
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
+                                <label>Recaudador</label>
+                                <p><%= recaudadorNombre %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
                                 <label>Monto</label>
-                                <input class="form-control" placeholder="Monto" type="number" min="1" name="monto" value="<%= monto %>">
-                                <p class="help-block"></p>
+                                <p><%= monto %></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>fecha Registro</label>
+                                <p><%= fechaRegistroDes %></p>
                             </div>
                         </div>
                     </div>
@@ -29,16 +40,21 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Comentario</label>
-                                <input class="form-control" placeholder="Comentario" type="text" name="comentario" value="<%= comentario %>">
-                                <p class="help-block"></p>
+                                <p><%= comentario %></p>
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Visibilidad</label>
-                                <select class="form-control" id="select-visibilidad" placeholder="Visibilidad..." name="visibilidad" value="<%= visibilidad %>">
-                                </select>
-                                <p class="help-block"></p>
+                                <p><%= visibilidadDes %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <p><%= enabledDes %></p>
                             </div>
                         </div>
                     </div>
@@ -46,14 +62,13 @@
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <label>Ruta Comprobante</label>
-                                <div id="upload-file"></div>
+                                <img src="<%= rutaFichaPago %>">
                             </div>
                         </div>
                     </div>
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default close-lupa" data-dismiss="modal">Cancelar</button>
-                    <button id="btn-aceptar" type="button" class="btn btn-success">Aceptar</button>
                 </div>
             </div>
         </div>

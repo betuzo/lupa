@@ -31,4 +31,6 @@ public interface IngresoService {
     List<Map<String,Object>> listIngresos();
 
     void deleteIngreso(Long idIngreso);
+
+    void updateFichaPagoByIngreso(String fichaPago, Long idIngreso);
 }

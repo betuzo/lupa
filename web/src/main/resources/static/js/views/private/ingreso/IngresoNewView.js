@@ -6,12 +6,14 @@ define([
     'jquerySerializeObject',
     'views/private/util/ModalGenericView',
     'models/ingreso/IngresoModel',
+    'models/util/PhotoModel',
     'collections/PersonaCollection',
     'collections/ingreso/TipoVisibilidadCollection',
+    'views/private/util/UploadFileView',
     'text!templates/private/ingreso/tplIngresoNew.html'
 ], function($, Backbone, BaseView, backboneValidation, jquerySerializeObject,
-            ModalGenericView, IngresoModel, PersonaCollection,
-            TipoVisibilidadCollection, tplIngresoNew){
+            ModalGenericView, IngresoModel, PhotoModel, PersonaCollection,
+            TipoVisibilidadCollection, UploadFileView, tplIngresoNew){
 
     var IngresoNewView = BaseView.extend({
         el: '#modal-donacion',
@@ -27,10 +29,9 @@ define([
                 this.model = new IngresoModel();
             } else {
                 this.model = opts.modelo;
-                $('#select-donador').prop('disabled', true);
             }
             this.callbackNewIngreso = opts.callbackNewIngreso;
-            this.render();
+            this.render(opts.tipo);
 
             this.visibilidades = new TipoVisibilidadCollection();
             this.listenTo(this.visibilidades, 'sync', this.syncVisibilidades);
@@ -53,10 +54,42 @@ define([
             Backbone.Validation.bind(this);
         },
 
-        render: function() {
+        render: function(tipo) {
             this.$el.html(this.template(this.model.toJSON()));
             this.$('#ingreso-dialog').modal({backdrop: "static", keyboard: false});
+            if (tipo === 'new') {
+                $('#select-donador').prop('disabled', false);
+            } else {
+                $('#select-donador').prop('disabled', true);
+                this.setUpEdit();
+            }
             return this;
+        },
+
+        setUpEdit: function() {
+            var that = this;
+            var photo = new PhotoModel();
+            photo.set({pathLogo: this.model.get('rutaFichaPago')});
+            photo.set({hasLogo: this.model.get('hasFichaPago')});
+            photo.set({idLogo: this.model.get('id')});
+            photo.set({nameLogo: this.model.get('fichaPago')});
+            photo.set({type: 'INGRESO'});
+            var uploadFile = new UploadFileView({
+                modelo: photo,
+                urlUpload: 'file/upload/foto',
+                urlDelete: 'file/delete/foto',
+                callbackUpload:function (data) {
+                    that.model.set({hasFichaPago: true});
+                    that.model.set({rutaFichaPago: data.pathfilename});
+                    that.model.set({fichaPago: data.filename});
+                },
+                callbackDelete:function (data) {
+                    that.model.set({hasFichaPago: false});
+                    that.model.set({rutaFichaPago: data.defaultname});
+                    that.model.set({fichaPago: ''});
+                }
+            });
+            $('#upload-file').html(uploadFile.render().$el);
         },
 
         agregarDonador: function(modelo){

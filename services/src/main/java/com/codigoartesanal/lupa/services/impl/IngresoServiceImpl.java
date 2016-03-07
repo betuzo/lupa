@@ -59,6 +59,11 @@ public class IngresoServiceImpl implements IngresoService {
         }
     }
 
+    @Override
+    public void updateFichaPagoByIngreso(String fichaPago, Long idIngreso) {
+        ingresoRepository.updateFichaPagoByIdIngreso(fichaPago, idIngreso);
+    }
+
     private Map<String, Object> convertIngresoToMap(Ingreso ingreso) {
         Map<String, Object> map = new HashMap<>();
         map.put(PROPERTY_ID, ingreso.getId());
