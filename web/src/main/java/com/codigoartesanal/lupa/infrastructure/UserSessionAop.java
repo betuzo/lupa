@@ -38,10 +38,6 @@ public class UserSessionAop {
     public void controllerLayer() {
     }
 
-    @Pointcut("execution(* com.codigoartesanal.lupa.controller.*Controller.delete*(..))")
-    public void controllerLayerDeleteMethod() {
-    }
-
     @Around("controllerLayer()")
     public Object aroundControllerMethod(ProceedingJoinPoint pjp) throws Throwable{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,15 +57,5 @@ public class UserSessionAop {
 
         Object retVal = pjp.proceed();
         return retVal;
-    }
-
-    @AfterReturning(
-            pointcut = "controllerLayerDeleteMethod())",
-            returning= "result")
-    public void deleteAfterReturning(JoinPoint joinPoint, Object result) {
-        Map<String, Object> resultDelete = (Map<String, Object>) result;
-        if (!(boolean)resultDelete.get(GeneralService.PROPERTY_RESULT)) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
     }
 }

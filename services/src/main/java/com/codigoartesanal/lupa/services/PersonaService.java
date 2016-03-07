@@ -17,16 +17,17 @@ public interface PersonaService {
     String PROPERTY_MATERNO             = "materno";
     String PROPERTY_SEXO                = "sexo";
     String PROPERTY_FECHA_REGISTRO      = "fechaRegistro";
-    String PROPERTY_HAS_LOGO_JUGADOR    = "hasLogoJugador";
-    String PROPERTY_LOGO_JUGADOR        = "logoJugador";
-    String PROPERTY_RUTA_LOGO_JUGADOR   = "rutaLogoJugador";
+    String PROPERTY_HAS_FOTO_PERSONA    = "hasFotoPersona";
+    String PROPERTY_FOTO_PERSONA        = "fotoPersona";
+    String PROPERTY_RUTA_FOTO_PERSONA   = "rutaFotoPersona";
 
-    Map<String,Object> createJugador(Map<String, String> jugador, User user);
+    Map<String,Object> createPersona(Map<String, String> jugador, User user);
 
-    DeleteStatusEnum deleteJugador(Long idJugador);
+    DeleteStatusEnum deletePersona(Long idJugador);
 
-    List<Map<String,Object>> listJugadorByAdmin(User user);
+    List<Map<String,Object>> listPersonaByAdmin(User user);
 
-    void updateFotoByJugador(String foto, Long idJugador);
+    void updateFotoByPersona(String foto, Long idJugador);
 
+    List<Map<String,Object>> listPersonaByRole(String role);
 }

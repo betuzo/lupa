@@ -3,15 +3,15 @@
 <td><%= recaudadorNombre %></td>
 <td><%= monto %></td>
 <td><%= fechaRegistroDes %></td>
-<td><%= visibilidadDes %></td>
 <td><%= enabledDes %></td>
 <td>
-    <button id="ver-comentario" class="btn btn-primary btn-xs" value="<%= id %>">
-        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" value="<%= id %>"></span>
+    <button id="detalle-ingreso" class="btn btn-primary btn-xs <%= classDetail %>" value="<%= id %>">
+        <span class="glyphicon glyphicon-search" aria-hidden="true" value="<%= id %>"></span>
     </button>
-</td>
-<td>
-    <button id="ver-ficha-pago" class="btn btn-primary btn-xs" value="<%= id %>">
-        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" value="<%= id %>"></span>
+    <button id="editar-ingreso" class="btn btn-primary btn-xs <%= classAction %>" value="<%= id %>">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true" value="<%= id %>"></span>
+    </button>
+    <button id="eliminar-ingreso" class="btn btn-danger btn-xs <%= classAction %>" value="<%= id %>">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true" value="<%= id %>"></span>
     </button>
 </td>

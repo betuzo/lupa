@@ -1,5 +1,6 @@
 package com.codigoartesanal.lupa.services.impl;
 
+import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.model.*;
 import com.codigoartesanal.lupa.repositories.IngresoRepository;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
@@ -28,10 +29,11 @@ public class IngresoServiceImpl implements IngresoService {
 
     @Override
     public Map<String, Object> createIngreso(Map<String, String> ingresoMap, User user) {
+        ingresoMap.put(PROPERTY_ENABLED, StatusIngreso.REGISTRADA.name());
+        ingresoMap.put(PROPERTY_FECHA_REGISTRO, String.valueOf((new Date()).getTime()));
         Ingreso ingreso = convertMapToIngreso(ingresoMap);
         ingreso.setRecaudador(personaRepository.findByUsername(user.getUsername()));
-        ingreso.setFechaRegistro(new Date());
-        ingreso.setStatus(StatusIngreso.REGISTRADA);
+        ingreso.setDonador(personaRepository.findOne(ingreso.getDonador().getId()));
         return convertIngresoToMap(ingresoRepository.save(ingreso));
     }
 
@@ -45,6 +47,21 @@ public class IngresoServiceImpl implements IngresoService {
             copy.add(dto);
         }
         return copy;
+    }
+
+    @Override
+    public void deleteIngreso(Long idIngreso) {
+        Ingreso ingreso = ingresoRepository.findOne(idIngreso);
+        if (ingreso.getStatus() == StatusIngreso.REGISTRADA) {
+            ingresoRepository.delete(idIngreso);
+        } else {
+            throw new DeleteException("El ingreso ya esta validado, contacte al supervisor");
+        }
+    }
+
+    @Override
+    public void updateFichaPagoByIngreso(String fichaPago, Long idIngreso) {
+        ingresoRepository.updateFichaPagoByIdIngreso(fichaPago, idIngreso);
     }
 
     private Map<String, Object> convertIngresoToMap(Ingreso ingreso) {

@@ -33,6 +33,9 @@ public class FileUploadController {
     @Autowired
     PersonaService personaService;
 
+    @Autowired
+    IngresoService ingresoService;
+
     @RequestMapping(value = "/upload/foto", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> addFileFoto(HttpServletRequest request, HttpServletResponse response,
@@ -56,8 +59,11 @@ public class FileUploadController {
 
                 OriginPhoto originPhoto = OriginPhoto.valueOf(origin);
                 storageImageServices.writeImage(bytes, nameLogo, originPhoto);
-                personaService.updateFotoByJugador(nameLogo, id);
-
+                if (OriginPhoto.PERSONA.equals(originPhoto)) {
+                    personaService.updateFotoByPersona(nameLogo, id);
+                } else if(OriginPhoto.INGRESO.equals(originPhoto)){
+                    ingresoService.updateFichaPagoByIngreso(nameLogo, id);
+                }
 
                 result.put("result", "success");
                 result.put("pathfilename", pathWebService.getValidPathWebFoto(nameLogo, OriginPhoto.valueOf(origin)));
@@ -81,7 +87,11 @@ public class FileUploadController {
 
         OriginPhoto originPhoto = OriginPhoto.valueOf(origin);
         storageImageServices.deleteImage(foto, originPhoto);
-        personaService.updateFotoByJugador("", idJugador);
+        if (OriginPhoto.PERSONA.equals(originPhoto)) {
+            personaService.updateFotoByPersona("", idJugador);
+        } else if(OriginPhoto.INGRESO.equals(originPhoto)){
+            ingresoService.updateFichaPagoByIngreso("", idJugador);
+        }
 
         result.put("result", "success");
         result.put("defaultname", originPhoto.getPathDefault());
