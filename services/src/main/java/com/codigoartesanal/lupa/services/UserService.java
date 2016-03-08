@@ -12,7 +12,6 @@ public interface UserService {
     String PROPERTY_PASSWORD_CONFIRM    = "passwordConfirm";
     String PROPERTY_ENABLED             = "enabled";
     String PROPERTY_ROLES               = "roles";
-    String PROPERTY_CONTEXT             = "context";
 
     String PROPERTY_ROLE_DEFAULT        = "PUBLIC";
 

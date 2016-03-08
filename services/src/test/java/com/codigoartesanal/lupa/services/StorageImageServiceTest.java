@@ -49,7 +49,7 @@ public class StorageImageServiceTest {
     @Test
     public void testWriteDeleteFilePathFotoValid() {
         String name = "prueba.png";
-        String serveerPath ="./src/test/resources/img/photo/jugador/";
+        String serveerPath ="./src/test/resources/img/photo/persona/";
         byte[] contenido = "Hallo World".getBytes();
         boolean result = true;
         result = storageImageService.writeImage(contenido, name, OriginPhoto.PERSONA);

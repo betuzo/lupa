@@ -9,4 +9,6 @@ public interface GeneralService {
 
     String PROPERTY_CLAVE               = "clave";
     String PROPERTY_DESCRIPCION         = "descripcion";
+
+    String PROPERTY_CONTEXT             = "context";
 }

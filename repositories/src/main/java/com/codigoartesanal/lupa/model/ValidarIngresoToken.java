@@ -45,7 +45,7 @@ public class ValidarIngresoToken {
     public ValidarIngresoToken() {
     }
 
-    public ValidarIngresoToken(User user, String token, TipoToken tipo, Date fechaVigencia) {
+    public ValidarIngresoToken(String token, Ingreso ingreso, Date fechaVigencia) {
         this.token = token;
         this.ingreso = ingreso;
         this.fechaVigencia = fechaVigencia;
