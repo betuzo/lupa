@@ -9,6 +9,7 @@ import java.util.Map;
  * Created by betuzo on 26/02/16.
  */
 public interface IngresoService {
+    int PROPERTY_TOKEN_VIGENCIA_DAYS    = 5;
 
     String PROPERTY_ID                  = "id";
     String PROPERTY_DONADOR_ID          = "donadorId";

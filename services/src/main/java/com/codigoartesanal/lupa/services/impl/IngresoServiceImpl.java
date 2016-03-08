@@ -4,10 +4,10 @@ import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.model.*;
 import com.codigoartesanal.lupa.repositories.IngresoRepository;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
-import com.codigoartesanal.lupa.services.IngresoService;
-import com.codigoartesanal.lupa.services.OriginPhoto;
-import com.codigoartesanal.lupa.services.PathWebService;
+import com.codigoartesanal.lupa.repositories.ValidarIngresoTokenRepository;
+import com.codigoartesanal.lupa.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -25,7 +25,13 @@ public class IngresoServiceImpl implements IngresoService {
     PersonaRepository personaRepository;
 
     @Autowired
+    ValidarIngresoTokenRepository validarIngresoTokenRepository;
+
+    @Autowired
     PathWebService pathWebService;
+
+    @Autowired
+    MailService mailService;
 
     @Override
     public Map<String, Object> createIngreso(Map<String, String> ingresoMap, User user) {
@@ -34,7 +40,21 @@ public class IngresoServiceImpl implements IngresoService {
         Ingreso ingreso = convertMapToIngreso(ingresoMap);
         ingreso.setRecaudador(personaRepository.findByUsername(user.getUsername()));
         ingreso.setDonador(personaRepository.findOne(ingreso.getDonador().getId()));
-        return convertIngresoToMap(ingresoRepository.save(ingreso));
+        ingreso = ingresoRepository.save(ingreso);
+        ValidarIngresoToken validarIngresoToken = validarIngresoTokenRepository.save(generateValidarIngresoToken(ingreso));
+        sendMailsToken(validarIngresoToken, ingresoMap.get(GeneralService.PROPERTY_CONTEXT));
+        return convertIngresoToMap(ingreso);
+    }
+
+    private ValidarIngresoToken generateValidarIngresoToken(Ingreso ingreso){
+        ValidarIngresoToken validarIngresoToken = new ValidarIngresoToken();
+        validarIngresoToken.setIngreso(ingreso);
+        Calendar fechaVigencia = Calendar.getInstance();
+        fechaVigencia.add(Calendar.DAY_OF_MONTH, PROPERTY_TOKEN_VIGENCIA_DAYS);
+        validarIngresoToken.setFechaVigencia(fechaVigencia.getTime());
+        validarIngresoToken.setToken(UUID.randomUUID().toString());
+
+        return validarIngresoToken;
     }
 
     @Override
@@ -109,5 +129,14 @@ public class IngresoServiceImpl implements IngresoService {
 
     private Ingreso get(Long idIngreso){
         return this.ingresoRepository.findOne(idIngreso);
+    }
+
+    private void sendMailsToken(ValidarIngresoToken validarIngresoToken, String context) {
+        Map<String, Object> props = new HashMap<>();
+        props.put("folio", validarIngresoToken.getIngreso().getId());
+        props.put("link", context + "/#token/ingreso/" + validarIngresoToken.getToken());
+
+        mailService.sendValidTokenIngresoToDonador(validarIngresoToken.getIngreso().getDonador().getUser(), props);
+        mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
     }
 }

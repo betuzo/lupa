@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,8 @@ public class IngresoController {
             value = { "" },
             method = {RequestMethod.POST},
             produces = {"application/json;charset=UTF-8"})
-    public Map<String, Object> createIngreso(@RequestBody Map<String, String> ingreso, User user) {
+    public Map<String, Object> createIngreso(@RequestBody Map<String, String> ingreso, User user, HttpServletRequest request) {
+        ingreso.put(GeneralService.PROPERTY_CONTEXT, request.getScheme() + "://" + request.getServerName());
         return ingresoService.createIngreso(ingreso, user);
     }
 

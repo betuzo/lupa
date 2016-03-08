@@ -7,6 +7,7 @@ import com.codigoartesanal.lupa.model.UserToken;
 import com.codigoartesanal.lupa.repositories.UserRepository;
 import com.codigoartesanal.lupa.repositories.UserRoleRepository;
 import com.codigoartesanal.lupa.repositories.UserTokenRepository;
+import com.codigoartesanal.lupa.services.GeneralService;
 import com.codigoartesanal.lupa.services.MailService;
 import com.codigoartesanal.lupa.services.UserService;
 import com.codigoartesanal.lupa.services.UserTokenService;
@@ -28,9 +29,6 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Autowired
-    UserTokenRepository userTokenRepository;
-
-    @Autowired
     UserRoleRepository userRoleRepository;
 
     @Autowired
@@ -38,9 +36,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     MailService mailService;
-
-    @Autowired
-    SimpleMailMessage templateMessage;
 
     @Override
     public Map<String, Object> findByUsername(String username) {
@@ -56,7 +51,7 @@ public class UserServiceImpl implements UserService {
             TipoToken tipoToken = (get(user.getUsername())==null) ? VALID_EMAIL : CHANGE_PASSWORD;
             userRoleRepository.save(generateRoleDefaultByUser(user));
             UserToken userToken = userTokenService.createUserTokenByUserAndTipo(user, tipoToken);
-            sendMailToken(userToken, userMap.get(PROPERTY_CONTEXT));
+            sendMailToken(userToken, userMap.get(GeneralService.PROPERTY_CONTEXT));
         }
         return convertUserToMap(user);
     }
@@ -113,13 +108,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private void sendMailToken(UserToken userToken, String context) {
-        templateMessage.setTo(userToken.getUser().getUsername());
-        templateMessage.setCc(userToken.getUser().getUsername());
-
         Map<String, Object> props = new HashMap<>();
         props.put("action", userToken.getTipo().getDescription());
         props.put("link", context + "#token/" + userToken.getToken());
 
-        mailService.send(templateMessage, props);
+        mailService.sendValidTokenUser(userToken.getUser(), props);
     }
 }

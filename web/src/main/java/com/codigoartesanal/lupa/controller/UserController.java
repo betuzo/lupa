@@ -1,5 +1,6 @@
 package com.codigoartesanal.lupa.controller;
 
+import com.codigoartesanal.lupa.services.GeneralService;
 import com.codigoartesanal.lupa.services.UserService;
 import com.codigoartesanal.lupa.services.UserTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class UserController {
             method = {RequestMethod.POST},
             produces = {"application/json;charset=UTF-8"})
     public Map<String, Object> createUser(@RequestBody Map<String, String> user, HttpServletRequest request) {
-        user.put(UserService.PROPERTY_CONTEXT, request.getContextPath());
+        user.put(GeneralService.PROPERTY_CONTEXT, request.getContextPath());
         return userService.createUser(user);
     }
 
