@@ -70,6 +70,11 @@ public class IngresoServiceImpl implements IngresoService {
     }
 
     @Override
+    public Map<String, Object> findIngresoById(Long idIngreso) {
+        return convertIngresoToMap(ingresoRepository.findOne(idIngreso));
+    }
+
+    @Override
     public void deleteIngreso(Long idIngreso) {
         Ingreso ingreso = ingresoRepository.findOne(idIngreso);
         if (ingreso.getStatus() == StatusIngreso.REGISTRADA) {
@@ -82,6 +87,11 @@ public class IngresoServiceImpl implements IngresoService {
     @Override
     public void updateFichaPagoByIngreso(String fichaPago, Long idIngreso) {
         ingresoRepository.updateFichaPagoByIdIngreso(fichaPago, idIngreso);
+    }
+
+    @Override
+    public void updateStatusByIngreso(String status, Long idIngreso) {
+        ingresoRepository.updateStatusByIngreso(status, idIngreso);
     }
 
     private Map<String, Object> convertIngresoToMap(Ingreso ingreso) {

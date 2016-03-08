@@ -20,4 +20,9 @@ public interface IngresoRepository extends CrudRepository<Ingreso, Long> {
     @Modifying
     @Query("update Ingreso i set i.fichaPago = :rutaFichaPago where i.id = :id")
     int updateFichaPagoByIdIngreso(@Param("rutaFichaPago") String fichaPago, @Param("id") Long idIngreso);
+
+    @Transactional
+    @Modifying
+    @Query("update Ingreso i set i.status = :status where i.id = :id")
+    int updateStatusByIngreso(@Param("status") String status, @Param("id") Long idIngreso);
 }
