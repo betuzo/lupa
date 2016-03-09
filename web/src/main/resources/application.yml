@@ -73,8 +73,8 @@ spring:
 mail:
   host: smtp.gmail.com
   port: 587
-  username: sit.utec@gmail.com
-  password: situtec2015
+  username: betotsol@gmail.com
+  password: soymuyflojo
   from.default: notificacion@lupa.com
   to.default: notificacion@lupa.com
   subject.default: Notificacion lupa
