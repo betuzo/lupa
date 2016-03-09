@@ -14,6 +14,7 @@ define([
     var ApplicationModel = Backbone.Model.extend({
 
         start: function () {
+            app.eventBus = _({}).extend(Backbone.Events);
             if ($.cookie('auth_token') === undefined) { // this line is the problem
                 $.ajaxSettings.headers = [];
                 Session.set('authenticated', false);

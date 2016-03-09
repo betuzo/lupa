@@ -30,7 +30,6 @@ define([
             } else {
                 this.model = opts.modelo;
             }
-            this.callbackNewIngreso = opts.callbackNewIngreso;
             this.render(opts.tipo);
 
             this.visibilidades = new TipoVisibilidadCollection();
@@ -126,7 +125,8 @@ define([
         },
 
         saveIngresoSuccess: function(model, response, options){
-            this.callbackNewIngreso(model);
+            app.eventBus.trigger("addIngreso", model);
+            app.eventBus.trigger("editIngreso" + model.get('id'), model);
             $('.close-lupa').click();
         },
 

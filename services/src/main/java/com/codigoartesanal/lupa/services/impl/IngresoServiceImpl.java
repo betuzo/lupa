@@ -82,6 +82,7 @@ public class IngresoServiceImpl implements IngresoService {
     public void deleteIngreso(Long idIngreso) {
         Ingreso ingreso = ingresoRepository.findOne(idIngreso);
         if (ingreso.getStatus() == StatusIngreso.REGISTRADA) {
+            validarIngresoTokenRepository.delete(validarIngresoTokenRepository.findAllByIngreso(ingreso));
             ingresoRepository.delete(idIngreso);
         } else {
             throw new DeleteException("El ingreso ya esta validado, contacte al supervisor");

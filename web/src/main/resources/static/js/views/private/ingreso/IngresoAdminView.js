@@ -6,10 +6,12 @@ define([
     'collections/ingreso/IngresoCollection',
     'views/private/ingreso/IngresoRowView',
     'views/private/ingreso/IngresoNewView',
+    'views/private/ingreso/IngresoTotalView',
     'text!templates/private/ingreso/tplIngresoAdmin.html'
 ], function($, Backbone, BaseView, IngresoTotalModel,
             IngresoCollection, IngresoRowView,
-            IngresoNewView, tplIngresoAdmin){
+            IngresoNewView, IngresoTotalView,
+            tplIngresoAdmin){
 
     var IngresoAdminView = BaseView.extend({
         template: _.template(tplIngresoAdmin),
@@ -28,9 +30,14 @@ define([
             this.listenTo(this.ingresos, 'add', this.agregarIngreso);
 
             this.model.fetch();
+            this.ingresos.fetch();
+
+            this.listenTo(app.eventBus, 'addIngreso', this.agregarIngresoNew);
+            this.listenTo(app.eventBus, 'deleteIngreso', this.quitarIngreso);
         },
 
         render: function() {
+            this.$el.html(this.template());
             return this;
         },
 
@@ -43,12 +50,20 @@ define([
         },
 
         syncIngresoTotal: function(){
-            this.$el.html(this.template(this.model.toJSON()));
-            this.ingresos.fetch();
+            new IngresoTotalView(this.model);
+        },
+
+        agregarIngresoNew: function(modelo){
+            this.model.fetch();
+            this.agregarIngreso(modelo);
+        },
+
+        quitarIngreso: function(modelo){
+            this.model.fetch();
         },
 
         ingresoNuevo: function(){
-            new IngresoNewView({tipo: 'new', callbackNewIngreso: this.agregarIngreso});
+            new IngresoNewView({tipo: 'new'});
         }
     });
 
