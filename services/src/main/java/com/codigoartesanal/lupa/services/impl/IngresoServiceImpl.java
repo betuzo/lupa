@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+import static com.codigoartesanal.lupa.model.TipoTokenIngreso.*;
+
 /**
  * Created by betuzo on 26/02/16.
  */
@@ -42,7 +44,9 @@ public class IngresoServiceImpl implements IngresoService {
         ingreso.setDonador(personaRepository.findOne(ingreso.getDonador().getId()));
         ingreso = ingresoRepository.save(ingreso);
         ValidarIngresoToken validarIngresoToken = validarIngresoTokenRepository.save(generateValidarIngresoToken(ingreso));
-        sendMailsToken(validarIngresoToken, ingresoMap.get(GeneralService.PROPERTY_CONTEXT));
+        sendMailsToken(validarIngresoToken, ingresoMap.get(GeneralService.PROPERTY_CONTEXT), VALID_INGRESO_DONADOR);
+        validarIngresoToken = validarIngresoTokenRepository.save(generateValidarIngresoToken(ingreso));
+        sendMailsToken(validarIngresoToken, ingresoMap.get(GeneralService.PROPERTY_CONTEXT), VALID_INGRESO_VALIDADOR);
         return convertIngresoToMap(ingreso);
     }
 
@@ -90,8 +94,8 @@ public class IngresoServiceImpl implements IngresoService {
     }
 
     @Override
-    public void updateStatusByIngreso(String status, Long idIngreso) {
-        ingresoRepository.updateStatusByIngreso(status, idIngreso);
+    public void updateStatusByIngreso(StatusIngreso statusIngreso, Long idIngreso) {
+        ingresoRepository.updateStatusByIngreso(statusIngreso, idIngreso);
     }
 
     private Map<String, Object> convertIngresoToMap(Ingreso ingreso) {
@@ -141,12 +145,15 @@ public class IngresoServiceImpl implements IngresoService {
         return this.ingresoRepository.findOne(idIngreso);
     }
 
-    private void sendMailsToken(ValidarIngresoToken validarIngresoToken, String context) {
+    private void sendMailsToken(ValidarIngresoToken validarIngresoToken, String context, TipoTokenIngreso tipo) {
         Map<String, Object> props = new HashMap<>();
         props.put("folio", validarIngresoToken.getIngreso().getId());
         props.put("link", context + "/#token/ingreso/" + validarIngresoToken.getToken());
 
-        mailService.sendValidTokenIngresoToDonador(validarIngresoToken.getIngreso().getDonador().getUser(), props);
-        mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
+        if (VALID_INGRESO_DONADOR == tipo) {
+            mailService.sendValidTokenIngresoToDonador(validarIngresoToken.getIngreso().getDonador().getUser(), props);
+        } else {
+            mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
+        }
     }
 }

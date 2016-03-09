@@ -1,7 +1,6 @@
 package com.codigoartesanal.lupa.services;
 
 import com.codigoartesanal.lupa.config.TestConfig;
-import com.codigoartesanal.lupa.model.OrigenEstadistica;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
