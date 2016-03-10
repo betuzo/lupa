@@ -76,6 +76,6 @@ public class VelocityMailServiceImpl implements MailService {
             message.setText(body, true);
         };
 
-        //mailSender.send(preparator);
+        mailSender.send(preparator);
     }
 }
