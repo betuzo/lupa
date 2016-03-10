@@ -25,12 +25,13 @@ define([
         },
 
         initialize: function(opts) {
-            if (opts.tipo == 'new') {
+            this.tipo = opts.tipo;
+            if (this.tipo == 'new') {
                 this.model = new IngresoModel();
             } else {
                 this.model = opts.modelo;
             }
-            this.render(opts.tipo);
+            this.render();
 
             this.visibilidades = new TipoVisibilidadCollection();
             this.listenTo(this.visibilidades, 'sync', this.syncVisibilidades);
@@ -53,10 +54,10 @@ define([
             Backbone.Validation.bind(this);
         },
 
-        render: function(tipo) {
+        render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             this.$('#ingreso-dialog').modal({backdrop: "static", keyboard: false});
-            if (tipo === 'new') {
+            if (this.tipo === 'new') {
                 $('#select-donador').prop('disabled', false);
             } else {
                 $('#select-donador').prop('disabled', true);
@@ -125,8 +126,12 @@ define([
         },
 
         saveIngresoSuccess: function(model, response, options){
-            app.eventBus.trigger("addIngreso", model);
-            app.eventBus.trigger("editIngreso" + model.get('id'), model);
+            if (this.tipo === 'new') {
+                app.eventBus.trigger("addIngreso", model);
+            } else {
+                app.eventBus.trigger("editIngreso" + model.get('id'), model);
+                app.eventBus.trigger("updateIngreso", model);
+            }
             $('.close-lupa').click();
         },
 
@@ -137,6 +142,7 @@ define([
         },
 
         clickClose: function() {
+            this.stopListening(this.model);
             this.undelegateEvents();
         }
     });

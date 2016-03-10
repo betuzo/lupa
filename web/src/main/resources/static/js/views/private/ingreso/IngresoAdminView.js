@@ -34,6 +34,7 @@ define([
 
             this.listenTo(app.eventBus, 'addIngreso', this.agregarIngresoNew);
             this.listenTo(app.eventBus, 'deleteIngreso', this.quitarIngreso);
+            this.listenTo(app.eventBus, 'updateIngreso', this.modificarIngreso);
         },
 
         render: function() {
@@ -59,6 +60,10 @@ define([
         },
 
         quitarIngreso: function(modelo){
+            this.model.fetch();
+        },
+
+        modificarIngreso: function(modelo){
             this.model.fetch();
         },
 
