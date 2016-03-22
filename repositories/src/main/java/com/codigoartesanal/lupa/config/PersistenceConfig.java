@@ -75,10 +75,6 @@ public class PersistenceConfig {
     @Profile({"test", "devbd"})
     public DataSource dataSourceDev() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        builder.addScript("classpath:/com/codigoartesanal/lupa/scripts/h2/ddl/user.sql");
-        builder.addScript("classpath:/com/codigoartesanal/lupa/scripts/h2/ddl/sequence.sql");
-        builder.addScript("classpath:/com/codigoartesanal/lupa/scripts/h2/ddl/constraints.sql");
-
         return builder.setType(EmbeddedDatabaseType.H2).build();
     }
 
@@ -87,7 +83,9 @@ public class PersistenceConfig {
     public DataSourceInitializer dataSourceInitializerConfigurationDev() {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
         resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/dml/user.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/dml/evento.sql"));
         resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/dml/ingreso.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/dml/egreso.sql"));
         resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/ddl/ingresototales.sql"));
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
