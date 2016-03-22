@@ -23,6 +23,10 @@ public class Ingreso {
     @JoinColumn(name = "recaudador_id", nullable = false)
     private Persona recaudador;
 
+    @ManyToOne
+    @JoinColumn(name = "evento_id", nullable = true)
+    private Evento evento;
+
     @Column(nullable = false)
     private Double monto;
 
