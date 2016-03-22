@@ -22,6 +22,8 @@ define([
         initialize: function(modelo) {
             this.model =  modelo;
             this.model.set({fechaRegistroDes: (new Date(this.model.get('fechaRegistro'))).format("mm/dd/yyyy HH:MM")});
+
+            this.listenTo(app.eventBus, 'editIngreso'+this.model.get('id'), this.editarSaveIngreso);
         },
 
         render: function() {
@@ -59,6 +61,7 @@ define([
                 contentType: 'application/json',
                 wait:true,
                 success: function(model, response) {
+                    app.eventBus.trigger("deleteIngreso", model);
                     that.destroyView();
                     new ModalGenericView({message: 'Ingreso eliminado'});
                 },
@@ -69,7 +72,7 @@ define([
         },
 
         editarIngreso: function() {
-            new IngresoNewView({modelo: this.model, tipo: 'edit', callbackNewIngreso: this.editarSaveIngreso});
+            new IngresoNewView({modelo: this.model, tipo: 'edit'});
         },
 
         editarSaveIngreso: function(model) {

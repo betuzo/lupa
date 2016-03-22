@@ -40,7 +40,7 @@ public class VelocityMailServiceImpl implements MailService {
         templateMessage.setTo(user.getUsername());
         templateMessage.setCc(user.getUsername());
 
-        send(templateMessage, hTemplateVariables, "/emailBody.vm");
+        send(templateMessage, hTemplateVariables, "emailBody.vm");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class VelocityMailServiceImpl implements MailService {
             templateMessage.setTo(userRole.getUser().getUsername());
             templateMessage.setCc(userRole.getUser().getUsername());
 
-            send(templateMessage, hTemplateVariables, "/emailValidaIngresoBody.vm");
+            send(templateMessage, hTemplateVariables, "emailValidaIngresoBody.vm");
         }
     }
 
@@ -60,7 +60,7 @@ public class VelocityMailServiceImpl implements MailService {
         templateMessage.setTo(donador.getUsername());
         templateMessage.setCc(donador.getUsername());
 
-        send(templateMessage, hTemplateVariables, "/emailValidaIngresoBody.vm");
+        send(templateMessage, hTemplateVariables, "emailValidaIngresoBody.vm");
     }
 
     private void send(final SimpleMailMessage msg, final Map<String, Object> hTemplateVariables, String templateLocation) {

@@ -36,8 +36,8 @@ public class ExceptionAop {
     public void controllerLayer() {
     }
 
-    @Pointcut("execution(* com.codigoartesanal.lupa.controller.UserTokenController.*(..))")
-    public void userTokenControllerLayer() {
+    @Pointcut("execution(* com.codigoartesanal.lupa.controller.*TokenController.*(..))")
+    public void tokenControllerLayer() {
     }
 
     @Pointcut("execution(* com.codigoartesanal.lupa.controller.*Controller.delete*(..))")
@@ -66,7 +66,7 @@ public class ExceptionAop {
     }
 
     @AfterThrowing(
-            pointcut = "userTokenControllerLayer())",  throwing= "error")
+            pointcut = "tokenControllerLayer())",  throwing= "error")
     public void throwingUserTokenController(JoinPoint joinPoint, Throwable error) {
         if (error.getClass().equals(TokenException.class)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

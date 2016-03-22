@@ -1,5 +1,6 @@
 package com.codigoartesanal.lupa.services;
 
+import com.codigoartesanal.lupa.model.StatusIngreso;
 import com.codigoartesanal.lupa.model.User;
 
 import java.util.List;
@@ -37,5 +38,5 @@ public interface IngresoService {
 
     void updateFichaPagoByIngreso(String fichaPago, Long idIngreso);
 
-    void updateStatusByIngreso(String name, Long id);
+    void updateStatusByIngreso(StatusIngreso statusIngreso, Long id);
 }

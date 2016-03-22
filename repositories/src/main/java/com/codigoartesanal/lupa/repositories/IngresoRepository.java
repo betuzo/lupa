@@ -1,6 +1,7 @@
 package com.codigoartesanal.lupa.repositories;
 
 import com.codigoartesanal.lupa.model.Ingreso;
+import com.codigoartesanal.lupa.model.StatusIngreso;
 import com.codigoartesanal.lupa.model.dto.EstadisticaIngresoDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,5 +25,5 @@ public interface IngresoRepository extends CrudRepository<Ingreso, Long> {
     @Transactional
     @Modifying
     @Query("update Ingreso i set i.status = :status where i.id = :id")
-    int updateStatusByIngreso(@Param("status") String status, @Param("id") Long idIngreso);
+    int updateStatusByIngreso(@Param("status") StatusIngreso status, @Param("id") Long idIngreso);
 }
