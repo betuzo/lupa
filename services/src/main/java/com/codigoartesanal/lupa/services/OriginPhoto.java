@@ -5,8 +5,8 @@ package com.codigoartesanal.lupa.services;
  */
 public enum OriginPhoto {
     INGRESO,
+    EGRESO,
     PERSONA;
-
 
     public String getPathPhotoBase() {
         return "photo/";
@@ -18,6 +18,8 @@ public enum OriginPhoto {
                 return "persona/";
             case INGRESO:
                 return "ingreso/";
+            case EGRESO:
+                return "egreso/";
             default:
                 return null;
         }
@@ -29,6 +31,8 @@ public enum OriginPhoto {
                 return "photo/persona/persona-default.png";
             case INGRESO:
                 return "photo/ingreso/ingreso-default.png";
+            case EGRESO:
+                return "photo/egreso/egreso-default.png";
             default:
                 return null;
         }

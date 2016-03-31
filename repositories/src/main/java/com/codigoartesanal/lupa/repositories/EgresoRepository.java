@@ -1,6 +1,7 @@
 package com.codigoartesanal.lupa.repositories;
 
 import com.codigoartesanal.lupa.model.Egreso;
+import com.codigoartesanal.lupa.model.StatusEgreso;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -20,5 +21,5 @@ public interface EgresoRepository extends CrudRepository<Egreso, Long> {
     @Transactional
     @Modifying
     @Query("update Egreso i set i.status = :status where i.id = :id")
-    int updateStatusByEgreso(@Param("status") String status, @Param("id") Long idEgreso);
+    int updateStatusByEgreso(@Param("status") StatusEgreso status, @Param("id") Long idEgreso);
 }

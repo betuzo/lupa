@@ -8,12 +8,14 @@ define([
     'models/ingreso/IngresoModel',
     'models/util/PhotoModel',
     'collections/PersonaCollection',
+    'collections/evento/EventoCollection',
     'collections/ingreso/TipoVisibilidadCollection',
     'views/private/util/UploadFileView',
     'text!templates/private/ingreso/tplIngresoNew.html'
 ], function($, Backbone, BaseView, backboneValidation, jquerySerializeObject,
             ModalGenericView, IngresoModel, PhotoModel, PersonaCollection,
-            TipoVisibilidadCollection, UploadFileView, tplIngresoNew){
+            EventoCollection, TipoVisibilidadCollection, UploadFileView,
+            tplIngresoNew){
 
     var IngresoNewView = BaseView.extend({
         el: '#modal-donacion',
@@ -32,6 +34,12 @@ define([
                 this.model = opts.modelo;
             }
             this.render();
+
+            this.eventos = new EventoCollection();
+            this.listenTo(this.eventos, 'sync', this.syncEventos);
+            this.listenTo(this.eventos, 'add', this.agregarEvento);
+
+            this.eventos.fetch();
 
             this.visibilidades = new TipoVisibilidadCollection();
             this.listenTo(this.visibilidades, 'sync', this.syncVisibilidades);
@@ -114,6 +122,19 @@ define([
 
         syncVisibilidades: function(){
             $('#select-visibilidad').val(this.model.get('visibilidad'));
+        },
+
+        agregarEvento: function(modelo){
+            $('#select-evento').append($('<option>', {
+                value: modelo.get('id'),
+                text : modelo.get('eventoNombre')
+            }));
+        },
+
+        syncEventos: function(){
+            if (this.model.get('eventoId') !== '') {
+                $('#select-evento').val(this.model.get('eventoId'));
+            }
         },
 
         saveIngreso: function(){

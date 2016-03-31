@@ -11,6 +11,8 @@ define([
             donadorNombre: '',
             recaudadorId: '',
             recaudadorNombre: '',
+            eventoId: '',
+            eventoNombre: '',
             monto: '',
             comentario: '',
             fichaPago: 'novalid',
@@ -30,7 +32,11 @@ define([
             },
             recaudadorId: {
                 required: false,
-                msg: 'Por favor especifique un email correcto'
+                msg: 'Por favor especifique el recaudador'
+            },
+            eventoId: {
+                required: false,
+                msg: 'Por favor especifique un evento'
             },
             monto: {
                 required: true,

@@ -4,10 +4,9 @@ import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.model.*;
 import com.codigoartesanal.lupa.repositories.IngresoRepository;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
-import com.codigoartesanal.lupa.repositories.ValidarIngresoTokenRepository;
+import com.codigoartesanal.lupa.repositories.IngresoTokenRepository;
 import com.codigoartesanal.lupa.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -27,7 +26,7 @@ public class IngresoServiceImpl implements IngresoService {
     PersonaRepository personaRepository;
 
     @Autowired
-    ValidarIngresoTokenRepository validarIngresoTokenRepository;
+    IngresoTokenRepository ingresoTokenRepository;
 
     @Autowired
     PathWebService pathWebService;
@@ -68,7 +67,7 @@ public class IngresoServiceImpl implements IngresoService {
     public void deleteIngreso(Long idIngreso) {
         Ingreso ingreso = ingresoRepository.findOne(idIngreso);
         if (ingreso.getStatus() == StatusIngreso.REGISTRADA) {
-            validarIngresoTokenRepository.delete(validarIngresoTokenRepository.findAllByIngreso(ingreso));
+            ingresoTokenRepository.delete(ingresoTokenRepository.findAllByIngreso(ingreso));
             ingresoRepository.delete(idIngreso);
         } else {
             throw new DeleteException("El ingreso ya esta validado, contacte al supervisor");
@@ -86,22 +85,22 @@ public class IngresoServiceImpl implements IngresoService {
     }
 
     private void sendTokenForValidation(Ingreso ingreso, String context){
-        validarIngresoTokenRepository.delete(validarIngresoTokenRepository.findAllByIngreso(ingreso));
-        ValidarIngresoToken validarIngresoToken = validarIngresoTokenRepository.save(generateValidarIngresoToken(ingreso));
-        sendMailsToken(validarIngresoToken, context, VALID_INGRESO_DONADOR);
-        validarIngresoToken = validarIngresoTokenRepository.save(generateValidarIngresoToken(ingreso));
-        sendMailsToken(validarIngresoToken, context, VALID_INGRESO_VALIDADOR);
+        ingresoTokenRepository.delete(ingresoTokenRepository.findAllByIngreso(ingreso));
+        IngresoToken ingresoToken = ingresoTokenRepository.save(generateValidarIngresoToken(ingreso));
+        sendMailsToken(ingresoToken, context, VALID_INGRESO_DONADOR);
+        ingresoToken = ingresoTokenRepository.save(generateValidarIngresoToken(ingreso));
+        sendMailsToken(ingresoToken, context, VALID_INGRESO_VALIDADOR);
     }
 
-    private ValidarIngresoToken generateValidarIngresoToken(Ingreso ingreso){
-        ValidarIngresoToken validarIngresoToken = new ValidarIngresoToken();
-        validarIngresoToken.setIngreso(ingreso);
+    private IngresoToken generateValidarIngresoToken(Ingreso ingreso){
+        IngresoToken ingresoToken = new IngresoToken();
+        ingresoToken.setIngreso(ingreso);
         Calendar fechaVigencia = Calendar.getInstance();
         fechaVigencia.add(Calendar.DAY_OF_MONTH, PROPERTY_TOKEN_VIGENCIA_DAYS);
-        validarIngresoToken.setFechaVigencia(fechaVigencia.getTime());
-        validarIngresoToken.setToken(UUID.randomUUID().toString());
+        ingresoToken.setFechaVigencia(fechaVigencia.getTime());
+        ingresoToken.setToken(UUID.randomUUID().toString());
 
-        return validarIngresoToken;
+        return ingresoToken;
     }
 
     private Map<String, Object> convertIngresoToMap(Ingreso ingreso) {
@@ -115,6 +114,8 @@ public class IngresoServiceImpl implements IngresoService {
         }
         map.put(PROPERTY_RECAUDADOR_ID, ingreso.getRecaudador().getId());
         map.put(PROPERTY_RECAUDADOR_NOMBRE, ingreso.getRecaudador().getNombreCompleto());
+        map.put(PROPERTY_EVENTO_ID, ingreso.getEvento().getId());
+        map.put(PROPERTY_EVENTO_NOMBRE, ingreso.getEvento().getNombre());
         map.put(PROPERTY_MONTO, ingreso.getMonto());
         map.put(PROPERTY_COMENTARIO, ingreso.getComentario());
         map.put(PROPERTY_FICHA_PAGO, ingreso.getFichaPago());
@@ -138,6 +139,9 @@ public class IngresoServiceImpl implements IngresoService {
         Persona donador = new Persona();
         donador.setId(Long.valueOf(ingresoMap.get(PROPERTY_DONADOR_ID)));
         ingreso.setDonador(donador);
+        Evento evento = new Evento();
+        evento.setId(Long.valueOf(ingresoMap.get(PROPERTY_EVENTO_ID)));
+        ingreso.setEvento(evento);
         ingreso.setMonto(Double.parseDouble(ingresoMap.get(PROPERTY_MONTO)));
         ingreso.setComentario(ingresoMap.get(PROPERTY_COMENTARIO));
         ingreso.setVisibilidad(TipoVisibilidad.valueOf(ingresoMap.get(PROPERTY_VISIBILIDAD)));
@@ -151,13 +155,13 @@ public class IngresoServiceImpl implements IngresoService {
         return this.ingresoRepository.findOne(idIngreso);
     }
 
-    private void sendMailsToken(ValidarIngresoToken validarIngresoToken, String context, TipoTokenIngreso tipo) {
+    private void sendMailsToken(IngresoToken ingresoToken, String context, TipoTokenIngreso tipo) {
         Map<String, Object> props = new HashMap<>();
-        props.put("folio", validarIngresoToken.getIngreso().getId());
-        props.put("link", context + "/#token/ingreso/" + validarIngresoToken.getToken());
+        props.put("folio", ingresoToken.getIngreso().getId());
+        props.put("link", context + "/#token/ingreso/" + ingresoToken.getToken());
 
         if (VALID_INGRESO_DONADOR == tipo) {
-            mailService.sendValidTokenIngresoToDonador(validarIngresoToken.getIngreso().getDonador().getUser(), props);
+            mailService.sendValidTokenIngresoToDonador(ingresoToken.getIngreso().getDonador().getUser(), props);
         } else {
             mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
         }
