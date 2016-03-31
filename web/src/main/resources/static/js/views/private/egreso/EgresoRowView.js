@@ -4,22 +4,26 @@ define([
     'dateformat',
     'core/BaseView',
     'views/private/util/ModalGenericView',
-    'views/private/evento/EventoNewView',
-    'text!templates/private/evento/tplEventoRow.html'
-], function($, _, dateformat, BaseView, ModalGenericView, EventoNewView, tplEventoRow){
+    'views/private/egreso/EgresoNewView',
+    'views/private/egreso/EgresoDetailView',
+    'text!templates/private/egreso/tplEgresoRow.html'
+], function($, _, dateformat, BaseView, ModalGenericView, EgresoNewView, EgresoDetailView, tplEgresoRow){
 
-    var EventoRowView = BaseView.extend({
-        template: _.template(tplEventoRow),
+    var EgresoRowView = BaseView.extend({
+        template: _.template(tplEgresoRow),
         tagName: 'tr',
 
         events: {
-            'click #eliminar-evento'        : 'eliminarEvento',
-            'click #editar-evento'          : 'editarEvento'
+            'click #eliminar-egreso'        : 'eliminarEgreso',
+            'click #editar-egreso'          : 'editarEgreso',
+            'click #detalle-egreso'         : 'detalleEgreso'
         },
 
         initialize: function(modelo) {
             this.model =  modelo;
             this.model.set({fechaRegistroDes: (new Date(this.model.get('fechaRegistro'))).format("mm/dd/yyyy HH:MM")});
+
+            this.listenTo(app.eventBus, 'editEgreso'+this.model.get('id'), this.editarSaveEgreso);
         },
 
         render: function() {
@@ -51,14 +55,15 @@ define([
                 return 'element-hidden';
         },
 
-        eliminarEvento: function() {
+        eliminarEgreso: function() {
             that = this;
             this.model.destroy({
                 contentType: 'application/json',
                 wait:true,
                 success: function(model, response) {
+                    app.eventBus.trigger("deleteEgreso", model);
                     that.destroyView();
-                    new ModalGenericView({message: 'Evento eliminado'});
+                    new ModalGenericView({message: 'Egreso eliminado'});
                 },
                 error: function(model, error) {
                     new ModalGenericView({message: error.responseJSON.message});
@@ -66,16 +71,20 @@ define([
             });
         },
 
-        editarEvento: function() {
-            new EventoNewView({modelo: this.model, tipo: 'edit', callbackNewEvento: this.editarSaveEvento});
+        editarEgreso: function() {
+            new EgresoNewView({modelo: this.model, tipo: 'edit'});
         },
 
-        editarSaveEvento: function(model) {
+        editarSaveEgreso: function(model) {
             this.model = model;
             this.render();
+        },
+
+        detalleEgreso: function() {
+            new EgresoDetailView(this.model);
         }
     });
 
-    return EventoRowView;
+    return EgresoRowView;
 
 });

@@ -5,7 +5,7 @@ define([
     'collections/evento/EventoCollection',
     'views/private/evento/EventoRowView',
     'views/private/evento/EventoNewView',
-    'text!templates/private/evento/tpleventoAdmin.html'
+    'text!templates/private/evento/tplEventoAdmin.html'
 ], function($, Backbone, BaseView, EventoCollection,
             EventoRowView, EventoNewView, tpleventoAdmin){
 

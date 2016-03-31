@@ -10,14 +10,16 @@ define([
     'views/TokenIngresoValidView',
 	'views/private/perfil/PerfilAdminView',
 	'views/private/ingreso/IngresoAdminView',
+	'views/private/egreso/EgresoAdminView',
+	'views/private/evento/EventoAdminView',
 	'views/private/MainAdminNavView',
 	'views/public/MainView',
     'views/public/MainNavView',
 	'Session'
 ], function($, _, Backbone, BaseRouter, LoginView, SignupView,
             TokenValidateView, TokenChangePassView, TokenIngresoValidView,
-            PerfilAdminView, IngresoAdminView, MainAdminNavView, MainView,
-            MainNavView, Session){
+            PerfilAdminView, IngresoAdminView, EgresoAdminView, EventoAdminView,
+            MainAdminNavView, MainView, MainNavView, Session){
         var Router = BaseRouter.extend({
 
         routes: {
@@ -31,7 +33,9 @@ define([
             'token/ingreso/:token':         'tokenIngreso',
             'admin':                        'admin',
             'admin/perfil':                 'adminPerfil',
-            'admin/donacion':               'adminDonacion'
+            'admin/donacion':               'adminDonacion',
+            'admin/gasto':                  'adminGasto',
+            'admin/evento':                 'adminEvento'
         },
 
         requresAuth : ['#admin'],
@@ -127,6 +131,16 @@ define([
 
         adminDonacion: function() {
             var view = new IngresoAdminView();
+            this.changeView(view);
+        },
+
+        adminGasto: function() {
+            var view = new EgresoAdminView();
+            this.changeView(view);
+        },
+
+        adminEvento: function() {
+            var view = new EventoAdminView();
             this.changeView(view);
         }
 	});

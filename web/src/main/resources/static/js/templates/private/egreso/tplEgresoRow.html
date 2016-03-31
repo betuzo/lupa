@@ -1,0 +1,17 @@
+<th><%= id %></th>
+<td><%= recaudadorNombre %></td>
+<td><%= eventoNombre %></td>
+<td><%= monto %></td>
+<td><%= fechaRegistroDes %></td>
+<td><%= enabledDes %></td>
+<td>
+    <button id="detalle-egreso" class="btn btn-primary btn-xs <%= classDetail %>" value="<%= id %>">
+        <span class="glyphicon glyphicon-search" aria-hidden="true" value="<%= id %>"></span>
+    </button>
+    <button id="editar-egreso" class="btn btn-primary btn-xs <%= classAction %>" value="<%= id %>">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true" value="<%= id %>"></span>
+    </button>
+    <button id="eliminar-egreso" class="btn btn-danger btn-xs <%= classAction %>" value="<%= id %>">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true" value="<%= id %>"></span>
+    </button>
+</td>
