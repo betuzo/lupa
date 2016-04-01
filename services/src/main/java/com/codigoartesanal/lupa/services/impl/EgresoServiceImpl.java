@@ -149,6 +149,6 @@ public class EgresoServiceImpl implements EgresoService {
         props.put("folio", egresoToken.getEgreso().getId());
         props.put("link", context + "/#token/egreso/" + egresoToken.getToken());
 
-        //mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
+        mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
     }
 }

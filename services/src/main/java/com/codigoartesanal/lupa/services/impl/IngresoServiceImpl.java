@@ -166,9 +166,9 @@ public class IngresoServiceImpl implements IngresoService {
         props.put("link", context + "/#token/ingreso/" + ingresoToken.getToken());
 
         if (VALID_INGRESO_DONADOR == tipo) {
-            //mailService.sendValidTokenIngresoToDonador(ingresoToken.getIngreso().getDonador().getUser(), props);
+            mailService.sendValidTokenIngresoToDonador(ingresoToken.getIngreso().getDonador().getUser(), props);
         } else {
-            //mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
+            mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
         }
     }
 }
