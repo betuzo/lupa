@@ -6,12 +6,14 @@ import com.codigoartesanal.lupa.model.User;
 import com.codigoartesanal.lupa.repositories.EventoRepository;
 import com.codigoartesanal.lupa.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 /**
  * Created by betuzo on 20/03/16.
  */
+@Service
 public class EventoServiceImpl implements EventoService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public Map<String, Object> createEvento(Map<String, String> eventoMap, User user) {
         Evento evento = convertMapToEvento(eventoMap);
-        return convertEventoToMap(evento);
+        return convertEventoToMap(eventoRepository.save(evento));
     }
 
     @Override

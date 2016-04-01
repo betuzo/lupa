@@ -5,31 +5,29 @@ define([
     'backboneValidation',
     'jquerySerializeObject',
     'views/private/util/ModalGenericView',
-    'models/ingreso/IngresoModel',
+    'models/egreso/EgresoModel',
     'models/util/PhotoModel',
     'collections/PersonaCollection',
     'collections/evento/EventoCollection',
-    'collections/ingreso/TipoVisibilidadCollection',
     'views/private/util/UploadFileView',
-    'text!templates/private/ingreso/tplIngresoNew.html'
+    'text!templates/private/egreso/tplEgresoNew.html'
 ], function($, Backbone, BaseView, backboneValidation, jquerySerializeObject,
-            ModalGenericView, IngresoModel, PhotoModel, PersonaCollection,
-            EventoCollection, TipoVisibilidadCollection, UploadFileView,
-            tplIngresoNew){
+            ModalGenericView, EgresoModel, PhotoModel, PersonaCollection,
+            EventoCollection, UploadFileView, tplEgresoNew){
 
-    var IngresoNewView = BaseView.extend({
-        el: '#modal-donacion',
-        template: _.template(tplIngresoNew),
+    var EgresoNewView = BaseView.extend({
+        el: '#modal-gasto',
+        template: _.template(tplEgresoNew),
 
         events: {
-            'click #btn-aceptar'        : 'saveIngreso',
+            'click #btn-aceptar'        : 'saveEgreso',
             'click .close-lupa'         : 'clickClose'
         },
 
         initialize: function(opts) {
             this.tipo = opts.tipo;
             if (this.tipo == 'new') {
-                this.model = new IngresoModel();
+                this.model = new EgresoModel();
             } else {
                 this.model = opts.modelo;
             }
@@ -41,34 +39,16 @@ define([
 
             this.eventos.fetch();
 
-            this.visibilidades = new TipoVisibilidadCollection();
-            this.listenTo(this.visibilidades, 'sync', this.syncVisibilidades);
-            this.listenTo(this.visibilidades, 'add', this.agregarVisibilidad);
-
-            this.visibilidades.fetch();
-
-            this.donadores = new PersonaCollection();
-            this.listenTo(this.donadores, 'sync', this.syncDonadores);
-            this.listenTo(this.donadores, 'add', this.agregarDonador);
-
-            this.donadores.setTipo('role');
-            this.donadores.setRole('DONADOR');
-
-            this.donadores.fetch();
-
-            this.listenTo(this.model, "sync", this.saveIngresoSuccess);
-            this.listenTo(this.model, "error", this.saveIngresoError);
+            this.listenTo(this.model, "sync", this.saveEgresoSuccess);
+            this.listenTo(this.model, "error", this.saveEgresoError);
 
             Backbone.Validation.bind(this);
         },
 
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
-            this.$('#ingreso-dialog').modal({backdrop: "static", keyboard: false});
-            if (this.tipo === 'new') {
-                $('#select-donador').prop('disabled', false);
-            } else {
-                $('#select-donador').prop('disabled', true);
+            this.$('#egreso-dialog').modal({backdrop: "static", keyboard: false});
+            if (this.tipo !== 'new') {
                 this.setUpEdit();
             }
             return this;
@@ -100,30 +80,6 @@ define([
             $('#upload-file').html(uploadFile.render().$el);
         },
 
-        agregarDonador: function(modelo){
-            $('#select-donador').append($('<option>', {
-                value: modelo.get('id'),
-                text : modelo.get('nombre') + ' ' + modelo.get('paterno')
-            }));
-        },
-
-        syncDonadores: function(){
-            if (this.model.get('donadorId') !== '') {
-                $('#select-donador').val(this.model.get('donadorId'));
-            }
-        },
-
-        agregarVisibilidad: function(modelo){
-            $('#select-visibilidad').append($('<option>', {
-                value: modelo.get('clave'),
-                text : modelo.get('descripcion')
-            }));
-        },
-
-        syncVisibilidades: function(){
-            $('#select-visibilidad').val(this.model.get('visibilidad'));
-        },
-
         agregarEvento: function(modelo){
             $('#select-evento').append($('<option>', {
                 value: modelo.get('id'),
@@ -137,8 +93,8 @@ define([
             }
         },
 
-        saveIngreso: function(){
-            var data = this.$el.find("#form-ingreso").serializeObject();
+        saveEgreso: function(){
+            var data = this.$el.find("#form-egreso").serializeObject();
             this.model.set(data);
 
             if(this.model.isValid(true)){
@@ -146,19 +102,19 @@ define([
             }
         },
 
-        saveIngresoSuccess: function(model, response, options){
+        saveEgresoSuccess: function(model, response, options){
             if (this.tipo === 'new') {
-                app.eventBus.trigger("addIngreso", model);
+                app.eventBus.trigger("addEgreso", model);
             } else {
-                app.eventBus.trigger("editIngreso" + model.get('id'), model);
-                app.eventBus.trigger("updateIngreso", model);
+                app.eventBus.trigger("editEgreso" + model.get('id'), model);
+                app.eventBus.trigger("updateEgreso", model);
             }
             $('.close-lupa').click();
         },
 
-        saveIngresoError: function(model, response, options){
+        saveEgresoError: function(model, response, options){
             new ModalGenericView({
-                message: 'Se presento un error al registrar el usuario'
+                message: 'Se presento un error al registrar el egreso'
             });
         },
 
@@ -168,6 +124,6 @@ define([
         }
     });
 
-    return IngresoNewView;
+    return EgresoNewView;
 
 });

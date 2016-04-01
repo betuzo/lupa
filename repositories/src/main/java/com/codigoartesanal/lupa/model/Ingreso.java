@@ -71,6 +71,14 @@ public class Ingreso {
         this.recaudador = recaudador;
     }
 
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
     public Double getMonto() {
         return monto;
     }

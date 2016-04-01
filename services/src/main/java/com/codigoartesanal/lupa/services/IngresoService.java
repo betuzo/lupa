@@ -17,6 +17,8 @@ public interface IngresoService {
     String PROPERTY_DONADOR_NOMBRE      = "donadorNombre";
     String PROPERTY_RECAUDADOR_ID       = "recaudadorId";
     String PROPERTY_RECAUDADOR_NOMBRE   = "recaudadorNombre";
+    String PROPERTY_EVENTO_ID           = "eventoId";
+    String PROPERTY_EVENTO_NOMBRE       = "eventoNombre";
     String PROPERTY_MONTO               = "monto";
     String PROPERTY_COMENTARIO          = "comentario";
     String PROPERTY_FICHA_PAGO          = "fichaPago";

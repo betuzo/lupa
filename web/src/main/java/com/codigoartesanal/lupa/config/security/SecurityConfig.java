@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/user").permitAll()
                 .antMatchers(HttpMethod.PUT, "/user/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/ingresotoken/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/egresotoken/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/**").authenticated()

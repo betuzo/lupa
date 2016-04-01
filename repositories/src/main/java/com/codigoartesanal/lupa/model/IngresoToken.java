@@ -7,8 +7,8 @@ import java.util.Date;
  * Created by betuzo on 25/01/16.
  */
 @Entity
-@Table(	name = "VALIDAR_INGRESO_TOKEN" )
-public class ValidarIngresoToken {
+@Table(	name = "INGRESO_TOKEN" )
+public class IngresoToken {
     @Id
     @Column(name = "token", nullable = false, length = 45)
     private String token;
@@ -42,10 +42,10 @@ public class ValidarIngresoToken {
         this.fechaVigencia = fechaVigencia;
     }
 
-    public ValidarIngresoToken() {
+    public IngresoToken() {
     }
 
-    public ValidarIngresoToken(String token, Ingreso ingreso, Date fechaVigencia) {
+    public IngresoToken(String token, Ingreso ingreso, Date fechaVigencia) {
         this.token = token;
         this.ingreso = ingreso;
         this.fechaVigencia = fechaVigencia;

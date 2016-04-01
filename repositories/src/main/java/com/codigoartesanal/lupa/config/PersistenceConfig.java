@@ -87,6 +87,7 @@ public class PersistenceConfig {
         resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/dml/ingreso.sql"));
         resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/dml/egreso.sql"));
         resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/ddl/ingresototales.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("/com/codigoartesanal/lupa/scripts/h2/ddl/egresototales.sql"));
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSourceDev());

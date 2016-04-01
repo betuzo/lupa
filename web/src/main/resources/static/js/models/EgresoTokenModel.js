@@ -2,23 +2,20 @@ define([
     'backbone'
 ], function(Backbone){
 
-    var IngresoModel = Backbone.Model.extend({
+    var EgresoTokenModel = Backbone.Model.extend({
 
-        urlRoot: 'ingreso',
+        urlRoot: 'egresotoken',
 
         defaults: {
-            donadorId: '',
-            donadorNombre: '',
+            token: '',
+            fechaVigencia: (new Date()).getTime(),
             recaudadorId: '',
             recaudadorNombre: '',
-            eventoId: '',
-            eventoNombre: '',
             monto: '',
             comentario: '',
             fichaPago: 'novalid',
             fechaRegistro: (new Date()).getTime(),
             fechaRegistroDes: '',
-            visibilidad: 'PUBLICA',
             enabled: 'false'
         },
 
@@ -26,25 +23,19 @@ define([
         },
 
         validation: {
-            donadorId: {
-                required: true,
-                msg: 'Por favor especifique el donador'
+            token: {
+                required: true
+            },
+            fechaVigencia: {
+                required: true
             },
             recaudadorId: {
                 required: false,
-                msg: 'Por favor especifique el recaudador'
-            },
-            eventoId: {
-                required: false,
-                msg: 'Por favor especifique un evento'
+                msg: 'Por favor especifique un email correcto'
             },
             monto: {
                 required: true,
                 msg: 'Por favor especifique un monto correcto'
-            },
-            visibilidad: {
-                required: true,
-                msg: 'Por favor especifique la visibilidad'
             },
             fichaPago: {
                 required: false
@@ -53,5 +44,5 @@ define([
 
     });
 
-	return IngresoModel;
+    return EgresoTokenModel;
 });

@@ -13,7 +13,7 @@ define([
         events: {
             'click #logout'             : 'logout',
             'click #home'               : 'homeAdmin',
-            'click .nav-item-lupa'  : 'activeMenu'
+            'click .nav-item-lupa'      : 'activeMenu'
         },
 
         initialize: function() {

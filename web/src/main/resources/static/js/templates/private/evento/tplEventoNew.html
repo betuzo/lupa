@@ -1,0 +1,43 @@
+<div class="modal fade" id="evento-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-lupa" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Evento</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-evento" role="form">
+                    <p>Detalle Evento.</p>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input class="form-control" placeholder="Nombre" type="text" name="eventoNombre" value="<%= eventoNombre %>">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Descripcion</label>
+                                <input class="form-control" placeholder="Descripcion" type="text" name="eventoDescripcion" value="<%= eventoDescripcion %>">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Fecha</label>
+                                <input id="dp-fecha" class="span2 form-control" size="16" type="text" name="fechaEventoDes" value="<%= fechaEventoDes %>">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close-lupa" data-dismiss="modal">Cancelar</button>
+                    <button id="btn-aceptar" type="button" class="btn btn-success">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

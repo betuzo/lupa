@@ -5,7 +5,7 @@ define([
     'collections/evento/EventoCollection',
     'views/private/evento/EventoRowView',
     'views/private/evento/EventoNewView',
-    'text!templates/private/evento/tpleventoAdmin.html'
+    'text!templates/private/evento/tplEventoAdmin.html'
 ], function($, Backbone, BaseView, EventoCollection,
             EventoRowView, EventoNewView, tpleventoAdmin){
 
@@ -21,10 +21,11 @@ define([
             this.listenTo(this.eventos, 'sync', this.syncEventos);
             this.listenTo(this.eventos, 'add', this.agregarEvento);
 
-            this.model.fetch();
+            this.eventos.fetch();
         },
 
         render: function() {
+            this.$el.html(this.template());
             return this;
         },
 

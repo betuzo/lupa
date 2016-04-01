@@ -3,8 +3,8 @@ package com.codigoartesanal.lupa.services.impl;
 import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.exception.TokenException;
 import com.codigoartesanal.lupa.model.StatusIngreso;
-import com.codigoartesanal.lupa.model.ValidarIngresoToken;
-import com.codigoartesanal.lupa.repositories.ValidarIngresoTokenRepository;
+import com.codigoartesanal.lupa.model.IngresoToken;
+import com.codigoartesanal.lupa.repositories.IngresoTokenRepository;
 import com.codigoartesanal.lupa.services.IngresoService;
 import com.codigoartesanal.lupa.services.IngresoTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,11 @@ public class IngresoTokenServiceImpl implements IngresoTokenService {
     IngresoService ingresoService;
 
     @Autowired
-    ValidarIngresoTokenRepository validarIngresoTokenRepository;
+    IngresoTokenRepository ingresoTokenRepository;
 
     @Override
     public Map<String, Object> ingresoTokenById(String token) {
-        ValidarIngresoToken ingresoToken = validarIngresoTokenRepository.findOne(token);
+        IngresoToken ingresoToken = ingresoTokenRepository.findOne(token);
         if (ingresoToken == null) {
             throw new TokenException("El token del ingreso no existe");
         }
@@ -39,19 +39,19 @@ public class IngresoTokenServiceImpl implements IngresoTokenService {
 
     @Override
     public void deleteIngresoToken(String token) {
-        ValidarIngresoToken ingresoToken = validarIngresoTokenRepository.findOne(token);
+        IngresoToken ingresoToken = ingresoTokenRepository.findOne(token);
         if (ingresoToken != null) {
-            Set<ValidarIngresoToken> tokens = validarIngresoTokenRepository.findAllByIngreso(ingresoToken.getIngreso());
+            Set<IngresoToken> tokens = ingresoTokenRepository.findAllByIngreso(ingresoToken.getIngreso());
             if (tokens.size()==1) {
                 ingresoService.updateStatusByIngreso(StatusIngreso.VALIDA, ingresoToken.getIngreso().getId());
             }
-            validarIngresoTokenRepository.delete(token);
+            ingresoTokenRepository.delete(token);
         } else {
             throw new DeleteException("El ingreso ya esta validado, contacte al supervisor");
         }
     }
 
-    private Map<String, Object> convertIngresoTokenToMap(ValidarIngresoToken ingresoToken) {
+    private Map<String, Object> convertIngresoTokenToMap(IngresoToken ingresoToken) {
         Map<String, Object> map = new HashMap<>();
         map.put(PROPERTY_TOKEN, ingresoToken.getToken());
         map.put(PROPERTY_INGRESO_ID, ingresoToken.getIngreso().getId());

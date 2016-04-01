@@ -2,23 +2,20 @@ define([
     'backbone'
 ], function(Backbone){
 
-    var IngresoModel = Backbone.Model.extend({
+    var EgresoModel = Backbone.Model.extend({
 
-        urlRoot: 'ingreso',
+        urlRoot: 'egreso',
 
         defaults: {
-            donadorId: '',
-            donadorNombre: '',
             recaudadorId: '',
             recaudadorNombre: '',
             eventoId: '',
             eventoNombre: '',
             monto: '',
             comentario: '',
-            fichaPago: 'novalid',
+            factura: 'novalid',
             fechaRegistro: (new Date()).getTime(),
             fechaRegistroDes: '',
-            visibilidad: 'PUBLICA',
             enabled: 'false'
         },
 
@@ -26,10 +23,6 @@ define([
         },
 
         validation: {
-            donadorId: {
-                required: true,
-                msg: 'Por favor especifique el donador'
-            },
             recaudadorId: {
                 required: false,
                 msg: 'Por favor especifique el recaudador'
@@ -42,16 +35,12 @@ define([
                 required: true,
                 msg: 'Por favor especifique un monto correcto'
             },
-            visibilidad: {
-                required: true,
-                msg: 'Por favor especifique la visibilidad'
-            },
-            fichaPago: {
+            factura: {
                 required: false
             }
         }
 
     });
 
-	return IngresoModel;
+	return EgresoModel;
 });

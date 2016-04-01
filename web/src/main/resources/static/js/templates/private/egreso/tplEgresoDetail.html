@@ -1,0 +1,70 @@
+<div class="modal fade" id="egreso-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-lupa" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Gasto</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-egreso" role="form">
+                    <p>Detalle Gasto.</p>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Recaudador</label>
+                                <p><%= recaudadorNombre %></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Evento</label>
+                                <p><%= eventoNombre %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Monto</label>
+                                <p><%= monto %></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>fecha Registro</label>
+                                <p><%= fechaRegistroDes %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Comentario</label>
+                                <p><%= comentario %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <p><%= enabledDes %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Factura</label>
+                                <img src="<%= rutaFactura %>">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close-lupa" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

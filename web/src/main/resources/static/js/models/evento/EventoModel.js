@@ -7,8 +7,8 @@ define([
         urlRoot: 'evento',
 
         defaults: {
-            nombre: '',
-            descripcion: '',
+            eventoNombre: '',
+            eventoDescripcion: '',
             fechaEvento: (new Date()).getTime(),
             fechaEventoDes: '',
         },
@@ -17,10 +17,10 @@ define([
         },
 
         validation: {
-            nombre: {
+            eventoNombre: {
                 required: true
             },
-            descripcion: {
+            eventoDescripcion: {
                 required: true
             },
             fechaEvento: {
