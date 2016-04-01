@@ -8,6 +8,7 @@ define([
     'views/TokenValidateView',
     'views/TokenChangePassView',
     'views/TokenIngresoValidView',
+    'views/TokenEgresoValidView',
 	'views/private/perfil/PerfilAdminView',
 	'views/private/ingreso/IngresoAdminView',
 	'views/private/egreso/EgresoAdminView',
@@ -18,8 +19,9 @@ define([
 	'Session'
 ], function($, _, Backbone, BaseRouter, LoginView, SignupView,
             TokenValidateView, TokenChangePassView, TokenIngresoValidView,
-            PerfilAdminView, IngresoAdminView, EgresoAdminView, EventoAdminView,
-            MainAdminNavView, MainView, MainNavView, Session){
+            TokenEgresoValidView, PerfilAdminView, IngresoAdminView,
+            EgresoAdminView, EventoAdminView, MainAdminNavView,
+            MainView, MainNavView, Session){
         var Router = BaseRouter.extend({
 
         routes: {
@@ -31,6 +33,7 @@ define([
             'token/:token':                 'token',
             'change/:token':                'changeToken',
             'token/ingreso/:token':         'tokenIngreso',
+            'token/egreso/:token':          'tokenEgreso',
             'admin':                        'admin',
             'admin/perfil':                 'adminPerfil',
             'admin/donacion':               'adminDonacion',
@@ -115,6 +118,12 @@ define([
         tokenIngreso : function(token) {
             new MainNavView();
             var view = new TokenIngresoValidView({token: token});
+            this.changeView(view);
+        },
+
+        tokenEgreso : function(token) {
+            new MainNavView();
+            var view = new TokenEgresoValidView({token: token});
             this.changeView(view);
         },
 
