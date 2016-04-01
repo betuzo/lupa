@@ -2,6 +2,7 @@ package com.codigoartesanal.lupa.services.impl;
 
 import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.model.*;
+import com.codigoartesanal.lupa.repositories.EventoRepository;
 import com.codigoartesanal.lupa.repositories.IngresoRepository;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
 import com.codigoartesanal.lupa.repositories.IngresoTokenRepository;
@@ -26,6 +27,9 @@ public class IngresoServiceImpl implements IngresoService {
     PersonaRepository personaRepository;
 
     @Autowired
+    EventoRepository eventoRepository;
+
+    @Autowired
     IngresoTokenRepository ingresoTokenRepository;
 
     @Autowired
@@ -41,6 +45,7 @@ public class IngresoServiceImpl implements IngresoService {
         Ingreso ingreso = convertMapToIngreso(ingresoMap);
         ingreso.setRecaudador(personaRepository.findByUsername(user.getUsername()));
         ingreso.setDonador(personaRepository.findOne(ingreso.getDonador().getId()));
+        ingreso.setEvento(eventoRepository.findOne(ingreso.getEvento().getId()));
         ingreso = ingresoRepository.save(ingreso);
         sendTokenForValidation(ingreso, ingresoMap.get(GeneralService.PROPERTY_CONTEXT));
         return convertIngresoToMap(ingreso);
@@ -161,9 +166,9 @@ public class IngresoServiceImpl implements IngresoService {
         props.put("link", context + "/#token/ingreso/" + ingresoToken.getToken());
 
         if (VALID_INGRESO_DONADOR == tipo) {
-            mailService.sendValidTokenIngresoToDonador(ingresoToken.getIngreso().getDonador().getUser(), props);
+            //mailService.sendValidTokenIngresoToDonador(ingresoToken.getIngreso().getDonador().getUser(), props);
         } else {
-            mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
+            //mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
         }
     }
 }

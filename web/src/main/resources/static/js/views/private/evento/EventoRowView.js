@@ -19,36 +19,14 @@ define([
 
         initialize: function(modelo) {
             this.model =  modelo;
-            this.model.set({fechaRegistroDes: (new Date(this.model.get('fechaRegistro'))).format("mm/dd/yyyy HH:MM")});
+            this.model.set({fechaEventoDes: (new Date(this.model.get('fechaEvento'))).format("mm/dd/yyyy")});
+
+            this.listenTo(app.eventBus, 'editEvento'+this.model.get('id'), this.editarSaveEvento);
         },
 
         render: function() {
-            this.model.set({classAction: this.classAction(this.model.get('enabled'))});
-            this.model.set({classDetail: this.classDetail(this.model.get('enabled'))});
             this.$el.html(this.template(this.model.toJSON()));
-            this.$el.addClass(this.classDonacion(this.model.get('enabled')));
             return this;
-        },
-
-        classDonacion: function(enabled) {
-            if (enabled==='VALIDA')
-                return 'success';
-            else
-                return 'danger';
-        },
-
-        classAction: function(enabled) {
-            if (enabled==='REGISTRADA')
-                return '';
-            else
-                return 'element-hidden';
-        },
-
-        classDetail: function(enabled) {
-            if (enabled==='VALIDA')
-                return '';
-            else
-                return 'element-hidden';
         },
 
         eliminarEvento: function() {

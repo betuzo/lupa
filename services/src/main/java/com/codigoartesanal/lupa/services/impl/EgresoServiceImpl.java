@@ -4,6 +4,7 @@ import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.model.*;
 import com.codigoartesanal.lupa.repositories.EgresoRepository;
 import com.codigoartesanal.lupa.repositories.EgresoTokenRepository;
+import com.codigoartesanal.lupa.repositories.EventoRepository;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
 import com.codigoartesanal.lupa.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class EgresoServiceImpl implements EgresoService {
     PersonaRepository personaRepository;
 
     @Autowired
+    EventoRepository eventoRepository;
+
+    @Autowired
     EgresoTokenRepository egresoTokenRepository;
 
     @Override
@@ -38,6 +42,7 @@ public class EgresoServiceImpl implements EgresoService {
         egresoMap.put(PROPERTY_FECHA_REGISTRO, String.valueOf((new Date()).getTime()));
         Egreso egreso = convertMapToEgreso(egresoMap);
         egreso.setRecaudador(personaRepository.findByUsername(user.getUsername()));
+        egreso.setEvento(eventoRepository.findOne(egreso.getEvento().getId()));
         egreso = egresoRepository.save(egreso);
         sendTokenForValidation(egreso, egresoMap.get(GeneralService.PROPERTY_CONTEXT));
         return convertEgresoToMap(egreso);
@@ -144,6 +149,6 @@ public class EgresoServiceImpl implements EgresoService {
         props.put("folio", egresoToken.getEgreso().getId());
         props.put("link", context + "/#token/egreso/" + egresoToken.getToken());
 
-        mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
+        //mailService.sendValidTokenIngresoByRole("VALIDADOR", props);
     }
 }

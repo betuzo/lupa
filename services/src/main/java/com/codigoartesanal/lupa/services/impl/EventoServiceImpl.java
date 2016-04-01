@@ -22,7 +22,7 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public Map<String, Object> createEvento(Map<String, String> eventoMap, User user) {
         Evento evento = convertMapToEvento(eventoMap);
-        return convertEventoToMap(evento);
+        return convertEventoToMap(eventoRepository.save(evento));
     }
 
     @Override

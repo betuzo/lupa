@@ -21,10 +21,11 @@ define([
             this.listenTo(this.eventos, 'sync', this.syncEventos);
             this.listenTo(this.eventos, 'add', this.agregarEvento);
 
-            this.model.fetch();
+            this.eventos.fetch();
         },
 
         render: function() {
+            this.$el.html(this.template());
             return this;
         },
 

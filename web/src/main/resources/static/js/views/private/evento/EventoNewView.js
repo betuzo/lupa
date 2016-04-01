@@ -1,14 +1,15 @@
 define([
     'jquery',
     'backbone',
+    'datetimepicker',
     'core/BaseView',
     'backboneValidation',
     'jquerySerializeObject',
     'views/private/util/ModalGenericView',
     'models/evento/EventoModel',
     'text!templates/private/evento/tplEventoNew.html'
-], function($, Backbone, BaseView, backboneValidation, jquerySerializeObject,
-            ModalGenericView, EventoModel, tplEventoNew){
+], function($, Backbone, datetimepicker, BaseView, backboneValidation,
+            jquerySerializeObject, ModalGenericView, EventoModel, tplEventoNew){
 
     var EventoNewView = BaseView.extend({
         el: '#modal-evento',
@@ -37,6 +38,13 @@ define([
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             this.$('#evento-dialog').modal({backdrop: "static", keyboard: false});
+            this.$el.find('#dp-fecha').datetimepicker({
+                format: "mm/dd/yyyy",
+                pickTime: false,
+                autoclose: true,
+                startView: 'month',
+                minView: 'month'
+            });
             return this;
         },
 
