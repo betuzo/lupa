@@ -22,6 +22,8 @@ define([
             this.listenTo(this.eventos, 'add', this.agregarEvento);
 
             this.eventos.fetch();
+
+            this.listenTo(app.eventBus, 'addEvento', this.agregarEventoNew);
         },
 
         render: function() {
@@ -39,7 +41,11 @@ define([
 
         eventoNuevo: function(){
             new EventoNewView({tipo: 'new', callbackNewEvento: this.agregarEvento});
-        }
+        },
+
+        agregarEventoNew: function(modelo){
+            this.agregarEvento(modelo);
+        },
     });
 
     return EventoAdminView;

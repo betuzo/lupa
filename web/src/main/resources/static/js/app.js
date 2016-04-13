@@ -8,7 +8,7 @@ define([
     'Session'
 ], function ($, Backbone, backboneValidation, jquerycookie, jquerySerializeObject, Router, Session) {
 
-    var pleaseWaitDiv = $('<div class="modal fade" data-keyboard="false" tabindex="-1"><div class="modal-base"><img src="img/basket.gif" style="display: block; margin: auto;"/></div></div>');
+    var pleaseWaitDiv = $('<div class="modal fade" data-keyboard="false" tabindex="-1"><div class="modal-base"><img src="img/loadlupa.gif" style="display: block; margin: auto;"/></div></div>');
     var callServers = 0;
 
     var ApplicationModel = Backbone.Model.extend({
