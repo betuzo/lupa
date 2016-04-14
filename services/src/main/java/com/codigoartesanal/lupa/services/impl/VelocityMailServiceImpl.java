@@ -6,6 +6,7 @@ import com.codigoartesanal.lupa.repositories.UserRoleRepository;
 import com.codigoartesanal.lupa.services.MailService;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,6 +22,7 @@ import java.util.Set;
  * Created by betuzo on 15/02/16.
  */
 @Service
+@Profile("googlestorage")
 public class VelocityMailServiceImpl implements MailService {
 
     @Autowired

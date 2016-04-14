@@ -10,9 +10,35 @@ require.config({
             ],
             exports: 'Backbone'
         },
+        backbonePaginator: {
+            deps: [
+                'backbone'
+            ]
+        },
         backboneValidation: {
             deps: [
                 'backbone'
+            ]
+        },
+        backgrid: {
+            deps: [
+                'backbone'
+            ]
+        },
+        backgridPaginator: {
+            deps: [
+                'backgrid',
+                'backbonePaginator'
+            ]
+        },
+        backgridSellectAll: {
+            deps: [
+                'backgrid'
+            ]
+        },
+        backgridFilter: {
+            deps: [
+                'backgrid'
             ]
         },
         bootstrap: {
@@ -52,9 +78,14 @@ require.config({
     },
     paths: {
         backbone: 'vendor/backbone/backbone-min',
+        backbonePaginator: 'vendor/backbone/paginator/backbone.paginator.min',
         jquery: 'vendor/jquery/jquery',
         jquerycookie: 'vendor/jquery/cookie/jquery.cookie',
         jquerySerializeObject: 'vendor/jquery/serializeObject/jquery.serializeObject.min',
+        backgrid: 'vendor/backbone/backgrid/backgrid',
+        backgridPaginator: 'vendor/backbone/backgrid/backgrid-paginator.min',
+        backgridSellectAll: 'vendor/backbone/backgrid/backgrid-select-all.min',
+        backgridFilter: 'vendor/backbone/backgrid/backgrid-filter.min',
         backboneValidation: 'vendor/backbone/backbone-validation/backbone-validation',
         text : 'vendor/requirejs-text/text',
         underscore: 'vendor/underscore/underscore-min',
