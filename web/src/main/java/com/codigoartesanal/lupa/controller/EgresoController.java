@@ -37,7 +37,8 @@ public class EgresoController {
             value = { "/{egreso}" },
             method = {RequestMethod.PUT},
             produces = {"application/json;charset=UTF-8"})
-    public Map<String, Object> updateEgreso(@RequestBody Map<String, String> egreso, User user) {
+    public Map<String, Object> updateEgreso(@RequestBody Map<String, String> egreso, User user,  HttpServletRequest request) {
+        egreso.put(GeneralService.PROPERTY_CONTEXT, request.getScheme() + "://" + request.getServerName());
         return egresoService.createEgreso(egreso, user);
     }
 

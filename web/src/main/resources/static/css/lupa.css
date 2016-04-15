@@ -78,3 +78,11 @@
 .element-hidden {
      visibility: hidden;
  }
+
+.status-validado {
+    background-color: #D0F1CD
+}
+
+.status-no-validado {
+    background-color: #FAEBD7
+}

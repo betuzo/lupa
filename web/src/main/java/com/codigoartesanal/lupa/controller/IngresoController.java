@@ -39,7 +39,8 @@ public class IngresoController {
             value = { "/{ingreso}" },
             method = {RequestMethod.PUT},
             produces = {"application/json;charset=UTF-8"})
-    public Map<String, Object> updateIngreso(@RequestBody Map<String, String> ingreso, User user) {
+    public Map<String, Object> updateIngreso(@RequestBody Map<String, String> ingreso, User user, HttpServletRequest request) {
+        ingreso.put(GeneralService.PROPERTY_CONTEXT, request.getScheme() + "://" + request.getServerName());
         return ingresoService.createIngreso(ingreso, user);
     }
 
