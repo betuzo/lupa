@@ -8,7 +8,7 @@ define([
         model: EgresoModel,
         url: "egreso",
         state: {
-            pageSize: 15
+            pageSize: 10
         },
         mode: "client" // page entirely on the client side
     });

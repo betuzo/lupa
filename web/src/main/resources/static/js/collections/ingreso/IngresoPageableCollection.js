@@ -8,7 +8,7 @@ define([
         model: IngresoModel,
         url: "ingreso",
         state: {
-            pageSize: 15
+            pageSize: 10
         },
         mode: "client" // page entirely on the client side
     });
