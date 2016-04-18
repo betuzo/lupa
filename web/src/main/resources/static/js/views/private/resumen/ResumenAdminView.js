@@ -87,7 +87,7 @@ define([
                     text: 'Ingresos por eventos'
                 },
                 tooltip: {
-                    pointFormat: '{point.percentage:.1f} % - {point.count}'
+                    pointFormat: '$ {point.y:.2f} - {point.count}'
                 },
                 plotOptions: {
                     pie: {
@@ -119,7 +119,7 @@ define([
                     text: 'Egresos por eventos'
                 },
                 tooltip: {
-                    pointFormat: '{point.percentage:.1f} % - {point.count}'
+                    pointFormat: '$ {point.y:.2f} - {point.count}'
                 },
                 plotOptions: {
                     pie: {
