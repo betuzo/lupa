@@ -2,6 +2,7 @@ package com.codigoartesanal.lupa.services;
 
 import com.codigoartesanal.lupa.model.StatusEgreso;
 import com.codigoartesanal.lupa.model.User;
+import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,8 @@ public interface EgresoService {
     Map<String,Object> createEgreso(Map<String, String> egreso, User user);
 
     List<Map<String,Object>> listEgresos();
+
+    List<GraficaDTO> listEgresosDetail();
 
     Map<String,Object> findEgresoById(Long idEgreso);
 

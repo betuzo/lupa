@@ -2,6 +2,7 @@ package com.codigoartesanal.lupa.services.impl;
 
 import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.model.*;
+import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 import com.codigoartesanal.lupa.repositories.EgresoRepository;
 import com.codigoartesanal.lupa.repositories.EgresoTokenRepository;
 import com.codigoartesanal.lupa.repositories.EventoRepository;
@@ -58,6 +59,11 @@ public class EgresoServiceImpl implements EgresoService {
             copy.add(dto);
         }
         return copy;
+    }
+
+    @Override
+    public List<GraficaDTO> listEgresosDetail() {
+        return egresoRepository.findAllDetailGroupEvent();
     }
 
     @Override

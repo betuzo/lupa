@@ -1,6 +1,7 @@
 package com.codigoartesanal.lupa.controller;
 
 import com.codigoartesanal.lupa.model.User;
+import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 import com.codigoartesanal.lupa.services.GeneralService;
 import com.codigoartesanal.lupa.services.EgresoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,15 @@ public class EgresoController {
         response.put(EgresoService.PROPERTY_ID, idEgreso);
         egresoService.deleteEgreso(idEgreso);
         return response;
+    }
+
+    @ResponseBody
+    @RequestMapping(
+            value = { "/detail" },
+            method = {RequestMethod.GET},
+            produces = {"application/json;charset=UTF-8"})
+    public List<GraficaDTO> listEgresosDetail() {
+        return egresoService.listEgresosDetail();
     }
 
 }

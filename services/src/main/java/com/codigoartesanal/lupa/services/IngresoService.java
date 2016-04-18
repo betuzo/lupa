@@ -2,6 +2,7 @@ package com.codigoartesanal.lupa.services;
 
 import com.codigoartesanal.lupa.model.StatusIngreso;
 import com.codigoartesanal.lupa.model.User;
+import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,8 @@ public interface IngresoService {
     Map<String,Object> createIngreso(Map<String, String> ingreso, User user);
 
     List<Map<String,Object>> listIngresos();
+
+    List<GraficaDTO> listIngresosDetail();
 
     Map<String,Object> findIngresoById(Long idIngreso);
 

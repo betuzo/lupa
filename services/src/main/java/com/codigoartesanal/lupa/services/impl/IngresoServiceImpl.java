@@ -2,6 +2,7 @@ package com.codigoartesanal.lupa.services.impl;
 
 import com.codigoartesanal.lupa.exception.DeleteException;
 import com.codigoartesanal.lupa.model.*;
+import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 import com.codigoartesanal.lupa.repositories.EventoRepository;
 import com.codigoartesanal.lupa.repositories.IngresoRepository;
 import com.codigoartesanal.lupa.repositories.PersonaRepository;
@@ -61,6 +62,11 @@ public class IngresoServiceImpl implements IngresoService {
             copy.add(dto);
         }
         return copy;
+    }
+
+    @Override
+    public List<GraficaDTO> listIngresosDetail() {
+        return ingresoRepository.findAllDetailGroupEvent();
     }
 
     @Override
