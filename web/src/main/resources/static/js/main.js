@@ -74,6 +74,21 @@ require.config({
             deps: [
                 'jquery'
             ]
+        },
+        highcharts: {
+            deps: [
+                'jquery'
+            ]
+        },
+        highcharts3d: {
+            deps: [
+                'highcharts'
+            ]
+        },
+        exporting: {
+            deps: [
+                'highcharts'
+            ]
         }
     },
     paths: {
@@ -94,7 +109,10 @@ require.config({
         datetimepicker: 'vendor/bootstrap/datetimepicker/bootstrap-datetimepicker',
         dateformat: 'vendor/date-format/date.format',
         bloodhound: 'vendor/typeahead/bloodhound',
-        typeahead: 'vendor/typeahead/typeahead.jquery'
+        typeahead: 'vendor/typeahead/typeahead.jquery',
+        highcharts: 'vendor/highcharts/highcharts',
+        highcharts3d: 'vendor/highcharts/highcharts-3d',
+        exporting: 'vendor/highcharts/exporting'
     }
 });
 

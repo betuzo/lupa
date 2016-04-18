@@ -2,7 +2,7 @@ package com.codigoartesanal.lupa.repositories;
 
 import com.codigoartesanal.lupa.model.Ingreso;
 import com.codigoartesanal.lupa.model.StatusIngreso;
-import com.codigoartesanal.lupa.model.dto.EstadisticaIngresoDTO;
+import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +26,10 @@ public interface IngresoRepository extends CrudRepository<Ingreso, Long> {
     @Modifying
     @Query("update Ingreso i set i.status = :status where i.id = :id")
     int updateStatusByIngreso(@Param("status") StatusIngreso status, @Param("id") Long idIngreso);
+
+    @Query("Select new com.codigoartesanal.lupa.model.dto.GraficaDTO(ig.evento.nombre, sum(ig.monto), count(*)) " +
+            "from Ingreso ig " +
+            "group by ig.evento ")
+    List<GraficaDTO> findAllDetailGroupEvent();
+
 }

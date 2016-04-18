@@ -2,6 +2,7 @@ package com.codigoartesanal.lupa.controller;
 
 import com.codigoartesanal.lupa.model.Ingreso;
 import com.codigoartesanal.lupa.model.User;
+import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 import com.codigoartesanal.lupa.services.GeneralService;
 import com.codigoartesanal.lupa.services.IngresoService;
 import com.codigoartesanal.lupa.services.impl.DeleteStatusEnum;
@@ -64,6 +65,15 @@ public class IngresoController {
         response.put(IngresoService.PROPERTY_ID, idIngreso);
         ingresoService.deleteIngreso(idIngreso);
         return response;
+    }
+
+    @ResponseBody
+    @RequestMapping(
+            value = { "/detail" },
+            method = {RequestMethod.GET},
+            produces = {"application/json;charset=UTF-8"})
+    public List<GraficaDTO> listIngresosDetail() {
+        return ingresoService.listIngresosDetail();
     }
 
 }
