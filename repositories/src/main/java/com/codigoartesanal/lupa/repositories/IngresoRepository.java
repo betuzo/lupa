@@ -29,7 +29,7 @@ public interface IngresoRepository extends CrudRepository<Ingreso, Long> {
 
     @Query("Select new com.codigoartesanal.lupa.model.dto.GraficaDTO(ig.evento.nombre, sum(ig.monto), count(*)) " +
             "from Ingreso ig " +
-            "group by ig.evento ")
+            "group by ig.evento.nombre ")
     List<GraficaDTO> findAllDetailGroupEvent();
 
 }

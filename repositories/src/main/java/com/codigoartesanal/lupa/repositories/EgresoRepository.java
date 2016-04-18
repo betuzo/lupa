@@ -28,6 +28,6 @@ public interface EgresoRepository extends CrudRepository<Egreso, Long> {
 
     @Query("Select new com.codigoartesanal.lupa.model.dto.GraficaDTO(eg.evento.nombre, sum(eg.monto), count(*)) " +
             "from Egreso eg " +
-            "group by eg.evento ")
+            "group by eg.evento.nombre ")
     List<GraficaDTO> findAllDetailGroupEvent();
 }
