@@ -1,6 +1,7 @@
 package com.codigoartesanal.lupa.repositories;
 
 import com.codigoartesanal.lupa.model.Ingreso;
+import com.codigoartesanal.lupa.model.Persona;
 import com.codigoartesanal.lupa.model.StatusIngreso;
 import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 import org.springframework.data.domain.Pageable;
@@ -31,5 +32,7 @@ public interface IngresoRepository extends CrudRepository<Ingreso, Long> {
             "from Ingreso ig " +
             "group by ig.evento.nombre ")
     List<GraficaDTO> findAllDetailGroupEvent();
+
+    List<Ingreso> findAllByDonador(Persona donador);
 
 }

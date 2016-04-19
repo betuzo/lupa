@@ -66,4 +66,14 @@ public class User {
 	public void setUserRole(Set<UserRole> userRole) {
 		this.userRole = userRole;
 	}
+
+	public boolean containRole(String role){
+		Set<UserRole> roles = getUserRole();
+		for (UserRole userRole : roles){
+			if(userRole.getRole().equals(role)){
+				return true;
+			}
+		}
+		return false;
+	}
 }

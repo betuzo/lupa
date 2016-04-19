@@ -53,9 +53,16 @@ public class IngresoServiceImpl implements IngresoService {
     }
 
     @Override
-    public List<Map<String, Object>> listIngresos() {
-        Iterator<Ingreso> itIngreso = ingresoRepository.findAll().iterator();
+    public List<Map<String, Object>> listIngresosByRole(User user) {
+        Iterator<Ingreso> itIngreso;
+        if (user.containRole(GeneralService.PROPERTY_ROLE_RECAUDADOR)) {
+            itIngreso = ingresoRepository.findAll().iterator();
+        } else  {
+            Persona persona = personaRepository.findByUsername(user.getUsername());
+            itIngreso = ingresoRepository.findAllByDonador(persona).iterator();
+        }
         List<Map<String, Object>> copy = new ArrayList<>();
+
         while (itIngreso.hasNext()) {
             Ingreso ingreso = itIngreso.next();
             Map<String, Object> dto = convertIngresoToMap(ingreso);

@@ -2,6 +2,7 @@ package com.codigoartesanal.lupa.controller;
 
 import com.codigoartesanal.lupa.model.Ingreso;
 import com.codigoartesanal.lupa.model.User;
+import com.codigoartesanal.lupa.model.UserRole;
 import com.codigoartesanal.lupa.model.dto.GraficaDTO;
 import com.codigoartesanal.lupa.services.GeneralService;
 import com.codigoartesanal.lupa.services.IngresoService;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by betuzo on 26/02/16.
@@ -50,8 +52,8 @@ public class IngresoController {
             value = { "" },
             method = {RequestMethod.GET},
             produces = {"application/json;charset=UTF-8"})
-    public List<Map<String, Object>> listIngresos() {
-        return ingresoService.listIngresos();
+    public List<Map<String, Object>> listIngresos(User user) {
+        return ingresoService.listIngresosByRole(user);
     }
 
 
