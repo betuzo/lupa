@@ -5,6 +5,7 @@ define([
     'backgridPaginator',
     'backgridSellectAll',
     'backgridFilter',
+    'backgridSum',
     'core/BaseView',
     'models/ingreso/IngresoTotalModel',
     'collections/ingreso/IngresoPageableCollection',
@@ -13,7 +14,7 @@ define([
     'views/private/ingreso/IngresoTotalView',
     'text!templates/private/ingreso/tplIngresoAdmin.html'
 ], function($, Backbone, backgrid, backgridPaginator, backgridSellectAll, backgridFilter,
-            BaseView, IngresoTotalModel, IngresoPageableCollection, IngresoActionCell,
+            backgridSum, BaseView, IngresoTotalModel, IngresoPageableCollection, IngresoActionCell,
             IngresoNewView, IngresoTotalView, tplIngresoAdmin){
 
     var IngresoAdminView = BaseView.extend({
@@ -116,7 +117,7 @@ define([
                     editable: false,
                     cell: "string"
                 }, {
-                    name: "",
+                    name: "action",
                     label: "",
                     cell: IngresoActionCell
             }];
@@ -126,7 +127,8 @@ define([
             var pageableGrid = new Backgrid.Grid({
                 columns: columns,
                 collection: this.ingresoPageableCollection,
-                row: MyRow
+                row: MyRow,
+                body: window.Backgrid.SummedColumnBody.extend({ columnsToSum: ['monto'] })
             });
 
             // Render the grid

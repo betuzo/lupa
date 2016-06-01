@@ -41,6 +41,11 @@ require.config({
                 'backgrid'
             ]
         },
+        backgridSum: {
+            deps: [
+                'backgrid'
+            ]
+        },
         bootstrap: {
             deps: [
                 'jquery'
@@ -101,6 +106,7 @@ require.config({
         backgridPaginator: 'vendor/backbone/backgrid/backgrid-paginator.min',
         backgridSellectAll: 'vendor/backbone/backgrid/backgrid-select-all.min',
         backgridFilter: 'vendor/backbone/backgrid/backgrid-filter.min',
+        backgridSum: 'vendor/backbone/backgrid/backgrid-sum',
         backboneValidation: 'vendor/backbone/backbone-validation/backbone-validation',
         text : 'vendor/requirejs-text/text',
         underscore: 'vendor/underscore/underscore-min',
