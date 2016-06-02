@@ -36,7 +36,8 @@ INSERT INTO USER_ROLE (ID, USERNAME, ROLE) VALUES
 (16, 'jlopez@tu.me', 'DONADOR'),
 (17, 'betotsol@gmail.com', 'DONADOR'),
 (18, 'jperez@tu.me', 'RECAUDADOR'),
-(19, 'betotsol@gmail.com', 'VALIDADOR');
+(19, 'betotsol@gmail.com', 'VALIDADOR'),
+(20, 'betotsol@gmail.com', 'RECAUDADOR');
 
 
 INSERT INTO USER_TOKEN (TOKEN, USERNAME, TIPO, FECHA_VIGENCIA) VALUES

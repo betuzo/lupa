@@ -11,4 +11,6 @@ public interface GeneralService {
     String PROPERTY_DESCRIPCION         = "descripcion";
 
     String PROPERTY_CONTEXT             = "context";
+
+    String PROPERTY_ROLE_RECAUDADOR     = "RECAUDADOR";
 }
