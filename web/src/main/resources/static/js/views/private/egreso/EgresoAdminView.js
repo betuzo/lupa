@@ -5,6 +5,7 @@ define([
     'backgridPaginator',
     'backgridSellectAll',
     'backgridFilter',
+    'backgridSum',
     'core/BaseView',
     'models/egreso/EgresoTotalModel',
     'collections/egreso/EgresoPageableCollection',
@@ -13,7 +14,7 @@ define([
     'views/private/egreso/EgresoTotalView',
     'text!templates/private/egreso/tplEgresoAdmin.html'
 ], function($, Backbone, backgrid, backgridPaginator, backgridSellectAll, backgridFilter,
-            BaseView, EgresoTotalModel, EgresoPageableCollection, EgresoActionCell,
+            backgridSum, BaseView, EgresoTotalModel, EgresoPageableCollection, EgresoActionCell,
             EgresoNewView, EgresoTotalView, tplEgresoAdmin){
 
     var EgresoAdminView = BaseView.extend({
@@ -120,7 +121,8 @@ define([
             var pageableGrid = new Backgrid.Grid({
                 columns: columns,
                 collection: this.egresoPageableCollection,
-                row: MyRow
+                row: MyRow,
+                body: window.Backgrid.SummedColumnBody.extend({ columnsToSum: ['monto'] })
             });
 
             // Render the grid
